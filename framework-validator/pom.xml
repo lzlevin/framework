@@ -13,6 +13,7 @@
     <artifactId>framework-validator</artifactId>
 
     <name>framework-validator</name>
+    <description>bean验证包，对原始validator进行扩展</description>
 
     <dependencies>
         <dependency>

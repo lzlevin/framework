@@ -1,4 +1,4 @@
-![image](./logo-simple.png)
+![image](images/logo-simple.png)
 
 ![image](https://img.shields.io/badge/jdk-8%2B-blue.svg)
 
@@ -18,7 +18,7 @@
 
 ## 文档
 
-[中文文档](https://framework.lzlevin.cn) | 各个模块详见各README
+[English](https://framework.lzlevin.cn) | [中文文档](https://framework.lzlevin.cn/zh) | 各个模块详见各README
 
 ## 快速开始
 

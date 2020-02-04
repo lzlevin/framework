@@ -20,6 +20,7 @@
         <module>framework-utils</module>
         <module>framework-starter</module>
         <module>framework-validator</module>
+        <module>framework-admin</module>
     </modules>
 
     <name>framework-parent</name>

@@ -10,5 +10,5 @@ import java.io.Serializable;
  * @author levin
  * @since 1.0.0
  */
-public interface Entity<T extends Serializable> {
+public interface Entity<T extends Serializable> extends Serializable {
 }

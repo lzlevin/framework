@@ -21,5 +21,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>spring-boot-starter-mybatis</artifactId>
+            <version>${vin.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-validator</artifactId>
+            <version>${vin.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
     </dependencies>
 </project>

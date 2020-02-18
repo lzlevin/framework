@@ -9,8 +9,8 @@ import ${superServiceClassPackage};
  * </p>
  *
  * @author ${author}
- * @since ${cfg.version}
  * @date ${date}
+ * @since ${cfg.version}
  */
 <#if kotlin>
 interface ${table.serviceName} : ${superServiceClass}<${entity}>

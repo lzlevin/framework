@@ -96,7 +96,7 @@ public class Generator {
         config.setEntityLombokModel(true);
         config.setEntitySerialVersionUID(false);
         String tables = PROPERTIES.getProperty("tables");
-        if (StringUtils.isBlank(tables)) {
+        if (StringUtils.isNotBlank(tables)) {
             String[] split = tables.split(",");
             config.setInclude(split);
         }

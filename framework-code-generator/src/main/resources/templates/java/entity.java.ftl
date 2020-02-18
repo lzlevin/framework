@@ -19,8 +19,8 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author ${author}
- * @since ${cfg.version}
  * @date ${date}
+ * @since ${cfg.version}
  */
 <#if entityLombokModel>
 @Data
@@ -35,7 +35,7 @@ import lombok.experimental.Accessors;
 @TableName("${table.name}")
 </#if>
 <#if swagger2>
-@ApiModel(value="${entity}对象", description="${table.comment!}")
+@ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
 public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
@@ -55,12 +55,11 @@ public class ${entity} implements Serializable {
     </#if>
 
     <#if field.comment!?length gt 0>
-        <#if swagger2>
-    @ApiModelProperty(value = "${field.comment}")
-        <#else>
     /**
      * ${field.comment}
      */
+        <#if swagger2>
+    @ApiModelProperty(value = "${field.comment}")
         </#if>
     </#if>
     <#if field.keyFlag>

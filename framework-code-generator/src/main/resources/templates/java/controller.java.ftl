@@ -18,8 +18,8 @@ import ${superControllerClassPackage};
  * </p>
  *
  * @author ${author}
- * @since ${cfg.version}
  * @date ${date}
+ * @since ${cfg.version}
  */
 <#if restControllerStyle>
 @RestController

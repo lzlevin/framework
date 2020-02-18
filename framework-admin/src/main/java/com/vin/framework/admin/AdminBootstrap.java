@@ -1,4 +1,4 @@
-package com.vin.framwork.admin;
+package com.vin.framework.admin;
 
 
 import org.springframework.boot.SpringApplication;

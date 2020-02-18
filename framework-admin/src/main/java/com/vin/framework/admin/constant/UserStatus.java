@@ -1,4 +1,4 @@
-package com.vin.framwork.admin.constant;
+package com.vin.framework.admin.constant;
 
 /**
  * 用户状态

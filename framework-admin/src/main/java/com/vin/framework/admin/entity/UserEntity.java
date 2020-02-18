@@ -1,11 +1,11 @@
-package com.vin.framwork.admin.entity;
+package com.vin.framework.admin.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.vin.framework.admin.constant.UserStatus;
+import com.vin.framework.admin.constant.UserType;
 import com.vin.framework.core.validate.CreateGroup;
 import com.vin.framework.mybatis.entity.StringKeyBaseEntity;
 import com.vin.framework.validate.constraints.Constant;
-import com.vin.framwork.admin.constant.UserStatus;
-import com.vin.framwork.admin.constant.UserType;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

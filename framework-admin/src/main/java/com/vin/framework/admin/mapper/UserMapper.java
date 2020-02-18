@@ -1,7 +1,7 @@
-package com.vin.framwork.admin.mapper;
+package com.vin.framework.admin.mapper;
 
 import com.vin.framework.mybatis.mapper.BaseMapper;
-import com.vin.framwork.admin.entity.UserEntity;
+import com.vin.framework.admin.entity.UserEntity;
 
 /**
  * @author levin

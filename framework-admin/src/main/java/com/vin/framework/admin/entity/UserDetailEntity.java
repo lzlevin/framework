@@ -1,4 +1,4 @@
-package com.vin.framwork.admin.entity;
+package com.vin.framework.admin.entity;
 
 import cn.hutool.core.lang.Validator;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -7,8 +7,8 @@ import com.vin.framework.mybatis.entity.LongKeyBaseEntity;
 import com.vin.framework.validate.constraints.Constant;
 import com.vin.framework.validate.constraints.Enumerable;
 import com.vin.framework.validate.constraints.Function;
-import com.vin.framwork.admin.constant.CertificateType;
-import com.vin.framwork.admin.constant.Gender;
+import com.vin.framework.admin.constant.CertificateType;
+import com.vin.framework.admin.constant.Gender;
 import lombok.Data;
 
 import javax.validation.constraints.Email;

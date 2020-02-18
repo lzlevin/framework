@@ -1,4 +1,4 @@
-package com.vin.framwork.admin.constant;
+package com.vin.framework.admin.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -6,5 +6,5 @@ package com.vin.framework.core.validate;
  * @author levin
  * @since 1.0.0
  */
-public final class CreateGroup {
+public interface CreateGroup {
 }

@@ -1,4 +1,4 @@
-package com.vin.framework.admin.service;
+package com.vin.framework.admin.biz;
 
 import com.vin.framework.mybatis.service.IService;
 import com.vin.framework.admin.entity.UserEntity;

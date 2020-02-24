@@ -47,14 +47,14 @@ public class UserEntity extends StringKeyBaseEntity {
     /**
      * 用户状态
      */
-    @NotNull
-    @Constant(value = UserStatus.class, message = "用户状态错误")
+    @NotNull(groups = CreateGroup.class, message = "用户状态错误")
+    @Constant(groups = CreateGroup.class, value = UserStatus.class, message = "用户状态错误")
     private Integer status;
     /**
      * 用户类型（后期可用于扩展用户信息表，比如学生表还对应于student表）
      */
-    @NotNull
-    @Constant(value = UserType.class, message = "用户类型错误")
+    @NotNull(groups = CreateGroup.class, message = "用户类型错误")
+    @Constant(groups = CreateGroup.class, value = UserType.class, message = "用户类型错误")
     private Integer userType;
     /**
      * 注册方式

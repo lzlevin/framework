@@ -21,7 +21,7 @@ public class UserHolder {
 
             @Override
             public Serializable getId() {
-                return UUID.randomUUID().toString();
+                return UUID.randomUUID().toString().replace("-", "");
             }
 
             @Override

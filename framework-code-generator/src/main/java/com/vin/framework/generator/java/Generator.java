@@ -60,6 +60,8 @@ public class Generator {
         config.setService("templates/java/service.java");
         config.setServiceImpl("templates/java/serviceImpl.java");
         config.setXml("templates/java/mapper.xml");
+        config.setPo("templates/java/po.java");
+        config.setVo("templates/java/vo.java");
         return config;
     }
 

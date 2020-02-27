@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.vin.framework.core.dto.BaseDTO;
 import com.vin.framework.mybatis.entity.LongKeyBaseEntity;
 import com.vin.framework.mybatis.mapper.BaseMapper;
 import com.vin.framework.mybatis.service.IService;
@@ -60,7 +61,7 @@ public class Generator {
         config.setService("templates/java/service.java");
         config.setServiceImpl("templates/java/serviceImpl.java");
         config.setXml("templates/java/mapper.xml");
-        config.setPo("templates/java/po.java");
+        config.setDto("templates/java/dto.java");
         config.setVo("templates/java/vo.java");
         return config;
     }
@@ -94,6 +95,7 @@ public class Generator {
         config.setSuperMapperClass(BaseMapper.class.getName());
         config.setSuperServiceClass(IService.class.getName());
         config.setSuperServiceImplClass(ServiceImpl.class.getName());
+        config.setSuperDTOClass(BaseDTO.class.getName());
         config.setEntityBuilderModel(true);
         config.setEntityLombokModel(true);
         config.setEntitySerialVersionUID(false);

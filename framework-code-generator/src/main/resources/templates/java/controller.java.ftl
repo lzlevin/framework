@@ -4,10 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.vin.framework.admin.biz.UserBusiness;
-import com.vin.framework.admin.dto.UserDTO;
-import com.vin.framework.admin.entity.UserEntity;
-import com.vin.framework.admin.vo.UserVO;
+import ${package.Service}.${table.serviceName};
+import ${package.DTO}.${table.dtoName};
+import ${package.Entity}.${entity};
+import ${package.VO}.${table.voName};
 import com.vin.framework.core.api.ApiResponse;
 import com.vin.framework.core.validate.CreateGroup;
 import com.vin.framework.core.validate.DeleteGroup;
@@ -39,6 +39,7 @@ import ${superControllerClassPackage};
  * @date ${date}
  * @since ${cfg.version}
  */
+@Slf4j
 <#if restControllerStyle>
 @RestController
 <#else>
@@ -65,19 +66,19 @@ public class ${table.controllerName} {
     * @return api响应
     */
     @RequestMapping("list")
-    public ApiResponse list(UserDTO dto) {
-    log.info("[用户查询开始]，接口名[list]");
-    long start = System.currentTimeMillis();
-    UserEntity entity = new UserEntity();
-    BeanUtil.copyProperties(dto, entity);
-    List<UserEntity> list = business.list(Wrappers.query(entity));
-    List<UserVO> collect = list.stream().map(t -> {
-    UserVO po = new UserVO();
-    BeanUtil.copyProperties(t, po);
-    return po;
-    }).collect(Collectors.toList());
-    log.info("[用户查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
-    return ApiResponse.success(collect);
+    public ApiResponse list(${table.dtoName} dto) {
+        log.info("[${table.comment!}查询开始]，接口名[list]");
+        long start = System.currentTimeMillis();
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+        List<${entity}> list = business.list(Wrappers.query(entity));
+        List<${table.voName}> collect = list.stream().map(t -> {
+        ${table.voName} vo = new ${table.voName}();
+            BeanUtil.copyProperties(t, vo);
+            return vo;
+        }).collect(Collectors.toList());
+        log.info("[${table.comment!}查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(collect);
     }
 
     /**
@@ -87,25 +88,25 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("page")
-    public ApiResponse page(UserDTO dto) {
-    log.info("[用户分页查询开始]，接口名[page]");
-    long start = System.currentTimeMillis();
-    Page<UserEntity> page = new Page<>();
-    page.setCurrent(dto.getCurrent());
-    page.setSize(dto.getSize());
-    UserEntity condition = new UserEntity();
-    BeanUtil.copyProperties(dto, condition);
-    Page<UserEntity> result = business.page(page, Wrappers.query(condition));
-    Page<UserVO> response = new Page<>();
-    BeanUtil.copyProperties(result, response, CopyOptions.create().setIgnoreProperties("records", "optimizeCountSql"));
-    List<UserVO> collect = result.getRecords().stream().map(t -> {
-    UserVO po = new UserVO();
-    BeanUtil.copyProperties(t, po);
-    return po;
-    }).collect(Collectors.toList());
-    response.setRecords(collect);
-    log.info("[用户分页查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
-    return ApiResponse.success(response);
+    public ApiResponse page(${table.dtoName} dto) {
+        log.info("[${table.comment!}分页查询开始]，接口名[page]");
+        long start = System.currentTimeMillis();
+        Page<${entity}> page = new Page<>();
+        page.setCurrent(dto.getCurrent());
+        page.setSize(dto.getSize());
+        ${entity} condition = new ${entity}();
+        BeanUtil.copyProperties(dto, condition);
+        Page<${entity}> result = business.page(page, Wrappers.query(condition));
+        Page<${table.voName}> response = new Page<>();
+        BeanUtil.copyProperties(result, response, CopyOptions.create().setIgnoreProperties("records", "optimizeCountSql"));
+        List<${table.voName}> collect = result.getRecords().stream().map(t -> {
+            ${table.voName} vo = new ${table.voName}();
+            BeanUtil.copyProperties(t, vo);
+            return vo;
+        }).collect(Collectors.toList());
+        response.setRecords(collect);
+        log.info("[${table.comment!}分页查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(response);
     }
 
     /**
@@ -115,50 +116,50 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("get")
-    public ApiResponse get(UserDTO dto) {
-    log.info("[用户根据ID查询开始]，接口名[get]");
-    long start = System.currentTimeMillis();
-    UserVO po = new UserVO();
-    UserEntity user = business.getById(dto.getId());
-    BeanUtil.copyProperties(user, po);
-    log.info("[用户根据ID查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
-    return ApiResponse.success(po);
+    public ApiResponse get(${table.dtoName} dto) {
+        log.info("[${table.comment!}根据ID查询开始]，接口名[get]");
+        long start = System.currentTimeMillis();
+        ${table.voName} vo = new ${table.voName}();
+        ${entity} entity = business.getById(dto.getId());
+        BeanUtil.copyProperties(entity, vo);
+        log.info("[${table.comment!}根据ID查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(vo);
     }
 
     /**
     * 创建接口
     *
-    * @param dto 用户信息
+    * @param dto ${table.comment!}信息
     * @return
     */
     @RequestMapping("create")
-    public ApiResponse create(UserDTO dto) {
-    log.info("[用户创建开始]，接口名[create]");
-    long start = System.currentTimeMillis();
-    UserEntity entity = new UserEntity();
-    BeanUtil.copyProperties(dto, entity);
-    BeanValidator.validate(dto, CreateGroup.class);
-    boolean save = business.save(entity);
-    log.info("[用户创建结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
-    return ApiResponse.success(save);
+    public ApiResponse create(${table.dtoName} dto) {
+        log.info("[${table.comment!}创建开始]，接口名[create]");
+        long start = System.currentTimeMillis();
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+        BeanValidator.validate(dto, CreateGroup.class);
+        boolean save = business.save(entity);
+        log.info("[${table.comment!}创建结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(save);
     }
 
     /**
     * 根据主键更新
     *
-    * @param dto 用户数据
+    * @param dto ${table.comment!}数据
     * @return
     */
     @RequestMapping("update")
-    public ApiResponse update(UserDTO dto) {
-    log.info("[用户更新开始]，接口名[update]");
-    long start = System.currentTimeMillis();
-    UserEntity entity = new UserEntity();
-    BeanUtil.copyProperties(dto, entity);
-    BeanValidator.validate(entity, UpdateGroup.class);
-    boolean save = business.updateById(entity);
-    log.info("[用户更新结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
-    return ApiResponse.success(save);
+    public ApiResponse update(${table.dtoName} dto) {
+        log.info("[${table.comment!}更新开始]，接口名[update]");
+        long start = System.currentTimeMillis();
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+        BeanValidator.validate(entity, UpdateGroup.class);
+        boolean save = business.updateById(entity);
+        log.info("[${table.comment!}更新结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(save);
     }
 
     /**
@@ -168,15 +169,15 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("delete")
-    public ApiResponse delete(UserDTO dto) {
-    log.info("[用户根据ID删除开始]，接口名[delete]");
-    long start = System.currentTimeMillis();
-    UserEntity entity = new UserEntity();
-    BeanUtil.copyProperties(dto, entity);
-    BeanValidator.validate(entity, DeleteGroup.class);
-    boolean save = business.removeById(entity.getId());
-    log.info("[用户根据ID删除结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
-    return ApiResponse.success(save);
+    public ApiResponse delete(${table.dtoName} dto) {
+        log.info("[${table.comment!}根据ID删除开始]，接口名[delete]");
+        long start = System.currentTimeMillis();
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+        BeanValidator.validate(entity, DeleteGroup.class);
+        boolean save = business.removeById(entity.getId());
+        log.info("[${table.comment!}根据ID删除结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(save);
     }
 }
 </#if>

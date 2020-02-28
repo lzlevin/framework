@@ -1,6 +1,6 @@
 package com.vin.framework.core.user;
 
-import com.vin.framework.core.entity.SeqBaseEntity;
+import com.vin.framework.core.entity.BaseEntity;
 
 import java.io.Serializable;
 
@@ -10,5 +10,5 @@ import java.io.Serializable;
  * @author levin
  * @since 1.0.0
  */
-public interface User<PK extends Serializable> extends SeqBaseEntity<PK> {
+public interface User<PK extends Serializable> extends BaseEntity<PK> {
 }

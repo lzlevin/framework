@@ -1,4 +1,4 @@
-package com.vin.framework.core.entity;
+package com.vin.framework.core.common;
 
 /**
  * key value形式结构

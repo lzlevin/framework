@@ -6,7 +6,7 @@ package com.vin.framework.core.user;
  * @author levin
  * @since 1.0.0
  */
-//public class LongKeyUser extends LongKeyBaseEntity implements User<Long> {
-//
-//
-//}
+public interface LongKeyUser extends User<Long> {
+
+
+}

@@ -3,7 +3,6 @@ package com.vin.framework.core.user;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * 用户工具类
@@ -13,17 +12,7 @@ import java.util.UUID;
  */
 public class UserHolder {
     public static User getUser() {
-        return new User() {
-            @Override
-            public Integer getSeq() {
-                return null;
-            }
-
-            @Override
-            public Serializable getId() {
-                return UUID.randomUUID().toString().replace("-", "");
-            }
-
+        return new LongKeyUser() {
             @Override
             public Integer getDeleted() {
                 return null;
@@ -48,6 +37,11 @@ public class UserHolder {
             public LocalDateTime getModifyTime() {
                 return null;
             }
+
+            @Override
+            public Long getId() {
+                return null;
+            }
         };
     }
 
@@ -56,7 +50,7 @@ public class UserHolder {
         if (Objects.isNull(user)) {
             return null;
         } else {
-            return user.getId();
+            return (Serializable) user.getId();
         }
     }
 }

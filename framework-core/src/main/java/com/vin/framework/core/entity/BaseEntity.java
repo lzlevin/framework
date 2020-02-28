@@ -1,5 +1,7 @@
 package com.vin.framework.core.entity;
 
+import com.vin.framework.core.common.Idable;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -9,14 +11,7 @@ import java.time.LocalDateTime;
  * @param <PK> 主键类型
  * @author levin
  */
-public interface BaseEntity<PK extends Serializable> extends Entity<PK> {
-    /**
-     * ID
-     *
-     * @return ID
-     */
-    PK getId();
-
+public interface BaseEntity<PK extends Serializable> extends Entity<PK>, Idable<PK> {
     /**
      * 逻辑删除标识
      *

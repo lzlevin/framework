@@ -12,6 +12,9 @@ import com.vin.framework.core.api.ApiResponse;
 import com.vin.framework.core.validate.CreateGroup;
 import com.vin.framework.core.validate.DeleteGroup;
 import com.vin.framework.core.validate.UpdateGroup;
+<#if table.hasParent>
+import com.vin.framework.core.common.Parent;
+</#if>
 <#if table.hasName>
 import com.vin.framework.core.vo.NameVO;
 </#if>
@@ -203,6 +206,31 @@ public class ${table.controllerName} {
         }).collect(Collectors.toList());
         log.info("[${table.comment!}简单查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(collect);
+    }
+    </#if>
+
+    <#if table.hasParent>
+    /**
+     * 获取树形结构数据
+     *
+     * @param dto 查询条件
+     * @return
+     */
+    @RequestMapping("tree")
+    public ApiResponse tree(OrgDTO dto) {
+        log.info("[${table.comment!}树形查询开始]，接口名[tree]");
+        long start = System.currentTimeMillis();
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+        List<${entity}> list = business.list(Wrappers.query(entity));
+        List<${table.voName}> collect = list.stream().map(t -> {
+            ${table.voName} vo = new ${table.voName}();
+            BeanUtil.copyProperties(t, vo);
+            return vo;
+        }).collect(Collectors.toList());
+        List<${table.voName}> tree = Parent.treeString(collect);
+        log.info("[${table.comment!}树形查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(tree);
     }
     </#if>
 }

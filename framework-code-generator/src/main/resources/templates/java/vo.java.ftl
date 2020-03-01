@@ -6,6 +6,9 @@ import ${superVOClassPackage};
 <#list table.importPackages as pkg>
 import ${pkg};
 </#list>
+<#if table.hasParent>
+import com.vin.framework.core.common.Parent;
+</#if>
 <#if swagger2>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,7 +41,7 @@ import java.io.Serializable;
 @ApiModel(value = "${entity}VO", description = "${table.comment!}")
 </#if>
 <#if superVOClass??>
-public class ${table.voName} extends ${superVOClass}<${table.idPropertyType}> implements Serializable{
+public class ${table.voName} extends ${superVOClass}<${table.idPropertyType}> implements Serializable<#if table.hasParent>, Parent<${table.idPropertyType}></#if>{
 <#else>
 public class ${table.voName} implements Serializable {
 </#if>
@@ -87,7 +90,18 @@ public class ${table.voName} implements Serializable {
     }
     </#list>
 </#if>
+<#if table.hasParent>
+    /**
+     * 孩子节点
+     */
+    @ApiModelProperty(value = "孩子节点")
+    private List<${table.voName}> children;
 
+    @Override
+    public void setChildren(List<? extends Parent<${table.idPropertyType}>> list) {
+        this.children = (List<${table.voName}>) list;
+    }
+</#if>
 <#if entityColumnConstant>
     <#list table.fields as field>
     public static final String ${field.name?upper_case} = "${field.name}";

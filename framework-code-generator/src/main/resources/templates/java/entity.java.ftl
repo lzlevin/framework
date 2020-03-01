@@ -3,6 +3,18 @@ package ${package.Entity};
 <#list table.importPackages as pkg>
 import ${pkg};
 </#list>
+<#if table.hasName>
+import com.vin.framework.core.common.Name;
+</#if>
+<#if table.hasParent>
+import com.vin.framework.core.common.Parent;
+</#if>
+<#if table.hasUseFlag>
+import com.vin.framework.core.common.UseFlag;
+</#if>
+<#if table.hasSeq>
+import com.vin.framework.core.common.Sequence;
+</#if>
 <#if swagger2>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,7 +50,7 @@ import lombok.experimental.Accessors;
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
-public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
+public class ${entity} extends ${superEntityClass}<${table.idPropertyType}> <#if activeRecord><${entity}></#if><#if table.hasName || table.hasParent || table.hasUseFlag || table.hasSeq > implements<#if table.hasName> Name</#if><#if table.hasName && table.hasParent>,</#if><#if table.hasParent> Parent<${table.idPropertyType}></#if ><#if ( table.hasName || table.hasParent ) && table.hasUseFlag>,</#if><#if table.hasUseFlag> UseFlag</#if><#if ( table.hasName || table.hasParent || table.hasUseFlag ) && table.hasSeq >,</#if><#if table.hasSeq> Sequence</#if></#if> {
 <#elseif activeRecord>
 public class ${entity} extends Model<${entity}> {
 <#else>

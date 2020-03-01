@@ -36,7 +36,7 @@ import java.io.Serializable;
 @ApiModel(value = "${entity}DTO", description = "${table.comment!}")
 </#if>
 <#if superDTOClass??>
-public class ${table.dtoName} extends ${superDTOClass} implements Serializable{
+public class ${table.dtoName} extends ${superDTOClass}<${table.idPropertyType}> implements Serializable{
 <#else>
 public class ${table.dtoName} implements Serializable {
 </#if>

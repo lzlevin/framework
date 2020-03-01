@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.vin.framework.core.dto.BaseDTO;
-import com.vin.framework.mybatis.entity.LongKeyBaseEntity;
+import com.vin.framework.mybatis.entity.AbstractBaseEntity;
 import com.vin.framework.mybatis.mapper.BaseMapper;
 import com.vin.framework.mybatis.service.IService;
 import com.vin.framework.mybatis.service.impl.ServiceImpl;
@@ -91,7 +91,7 @@ public class Generator {
         StrategyConfig config = new StrategyConfig();
         config.setSkipView(true);
         config.setNaming(NamingStrategy.underline_to_camel);
-        config.setSuperEntityClass(LongKeyBaseEntity.class);
+        config.setSuperEntityClass(AbstractBaseEntity.class);
         config.setSuperMapperClass(BaseMapper.class.getName());
         config.setSuperServiceClass(IService.class.getName());
         config.setSuperServiceImplClass(ServiceImpl.class.getName());
@@ -99,6 +99,7 @@ public class Generator {
         config.setEntityBuilderModel(true);
         config.setEntityLombokModel(true);
         config.setEntitySerialVersionUID(false);
+        config.setRestControllerStyle(true);
         String tables = PROPERTIES.getProperty("tables");
         if (StringUtils.isNotBlank(tables)) {
             String[] split = tables.split(",");

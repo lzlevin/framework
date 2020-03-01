@@ -12,6 +12,9 @@ import com.vin.framework.core.api.ApiResponse;
 import com.vin.framework.core.validate.CreateGroup;
 import com.vin.framework.core.validate.DeleteGroup;
 import com.vin.framework.core.validate.UpdateGroup;
+<#if table.hasName>
+import com.vin.framework.core.vo.NameVO;
+</#if>
 import com.vin.framework.validate.validator.BeanValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,5 +182,28 @@ public class ${table.controllerName} {
         log.info("[${table.comment!}根据ID删除结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(save);
     }
+    <#if table.hasName>
+    /**
+    * 获取简单列表，可以用于下拉框选择等
+    *
+    * @param dto 查询条件
+    * @return
+    */
+    @RequestMapping("simple")
+    public ApiResponse simple(${table.dtoName} dto) {
+        log.info("[${table.comment!}简单查询开始]，接口名[list]");
+        long start = System.currentTimeMillis();
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+        List<${entity}> list = business.list(Wrappers.query(entity));
+        List<NameVO> collect = list.stream().map(t -> {
+            NameVO<${table.idPropertyType}> vo = new NameVO();
+            BeanUtil.copyProperties(t, vo);
+            return vo;
+        }).collect(Collectors.toList());
+        log.info("[${table.comment!}简单查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(collect);
+    }
+    </#if>
 }
 </#if>

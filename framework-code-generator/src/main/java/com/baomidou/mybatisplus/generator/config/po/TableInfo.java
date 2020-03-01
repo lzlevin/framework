@@ -25,6 +25,7 @@ import lombok.experimental.Accessors;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -49,6 +50,11 @@ public class TableInfo {
     private String voName;
     private String dtoName;
     private String controllerName;
+    private boolean hasParent;
+    private boolean hasSeq;
+    private boolean hasUseFlag;
+    private boolean hasName;
+    private String idPropertyType;
     private List<TableField> fields;
     /**
      * 公共字段
@@ -153,5 +159,46 @@ public class TableInfo {
             fieldNames = names.toString();
         }
         return fieldNames;
+    }
+
+    public boolean getHasParent() {
+        return hasParent = exist("parent");
+    }
+
+    public boolean getHasSeq() {
+        return hasSeq = exist("seq");
+    }
+
+    public boolean getHasUseFlag() {
+        return hasUseFlag = exist("useFlag");
+    }
+
+    public boolean getHasName() {
+        return hasName = exist("name");
+    }
+
+    public String getIdPropertyType() {
+        List<TableField> collect = this.commonFields.stream().filter(TableField::isKeyFlag).collect(Collectors.toList());
+        if (collect.size() == 0) {
+            collect = fields.stream().filter(TableField::isKeyFlag).collect(Collectors.toList());
+        }
+        if (collect.size() == 0) {
+            return null;
+        } else {
+            return idPropertyType = collect.get(0).getPropertyType();
+        }
+    }
+    /**
+     * 是否存在相应key的字段
+     *
+     * @param key
+     * @return
+     */
+    private boolean exist(String key) {
+        List<TableField> fields = this.getFields();
+        if (null == fields || fields.size() == 0) {
+            return false;
+        }
+        return fields.stream().anyMatch(t -> key.equals(t.getPropertyName()));
     }
 }

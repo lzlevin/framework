@@ -14,11 +14,4 @@ public interface Name {
      * @return 名称
      */
     String getName();
-
-    /**
-     * 设置名称
-     *
-     * @param name 名称
-     */
-    void setName(String name);
 }

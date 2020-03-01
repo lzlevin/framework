@@ -10,11 +10,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class NameVO<T> implements BaseVO, Idable<T> {
-    /**
-     * id
-     */
-    private T id;
+public class NameVO<T> extends BaseVO<T> implements Idable<T> {
     /**
      * 名称
      */

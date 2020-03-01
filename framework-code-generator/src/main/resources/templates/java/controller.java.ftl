@@ -191,7 +191,7 @@ public class ${table.controllerName} {
     */
     @RequestMapping("simple")
     public ApiResponse simple(${table.dtoName} dto) {
-        log.info("[${table.comment!}简单查询开始]，接口名[list]");
+        log.info("[${table.comment!}简单查询开始]，接口名[simple]");
         long start = System.currentTimeMillis();
         ${entity} entity = new ${entity}();
         BeanUtil.copyProperties(dto, entity);

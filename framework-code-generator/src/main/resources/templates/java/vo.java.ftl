@@ -38,7 +38,7 @@ import java.io.Serializable;
 @ApiModel(value = "${entity}VO", description = "${table.comment!}")
 </#if>
 <#if superVOClass??>
-public class ${table.voName} extends ${superVOClass} implements Serializable{
+public class ${table.voName} extends ${superVOClass}<${table.idPropertyType}> implements Serializable{
 <#else>
 public class ${table.voName} implements Serializable {
 </#if>
@@ -59,34 +59,6 @@ public class ${table.voName} implements Serializable {
         <#if swagger2>
     @ApiModelProperty(value = "${field.comment}")
         </#if>
-    </#if>
-    <#if field.keyFlag>
-        <#-- 主键 -->
-        <#if field.keyIdentityFlag>
-    @TableId(value = "${field.name}", type = IdType.AUTO)
-        <#elseif idType??>
-    @TableId(value = "${field.name}", type = IdType.${idType})
-        <#elseif field.convert>
-    @TableId("${field.name}")
-        </#if>
-        <#-- 普通字段 -->
-    <#elseif field.fill??>
-    <#-- -----   存在字段填充设置   ----->
-        <#if field.convert>
-    @TableField(value = "${field.name}", fill = FieldFill.${field.fill})
-        <#else>
-    @TableField(fill = FieldFill.${field.fill})
-        </#if>
-    <#elseif field.convert>
-    @TableField("${field.name}")
-    </#if>
-    <#-- 乐观锁注解 -->
-    <#if (versionFieldName!"") == field.name>
-    @Version
-    </#if>
-    <#-- 逻辑删除注解 -->
-    <#if (logicDeleteFieldName!"") == field.name>
-    @TableLogic
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>

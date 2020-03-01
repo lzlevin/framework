@@ -162,7 +162,7 @@ public class TableInfo {
     }
 
     public boolean getHasParent() {
-        return hasParent = exist("parent");
+        return hasParent = exist("parentId");
     }
 
     public boolean getHasSeq() {

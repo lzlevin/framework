@@ -70,7 +70,7 @@ public interface Parent<K> extends Idable<K> {
     static <K, T extends Parent<K>> List<T> tree(List<T> list, K root) {
         Map<K, List<T>> collect = list.stream().collect(Collectors.groupingBy(Parent::getParentId));
         List<T> ts = collect.get(root);
-        if (ts.size() == 0) {
+        if (null == ts || ts.size() == 0) {
             throw new RuntimeException("根节点不存在");
         }
         list.forEach(

@@ -19,6 +19,10 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 </#if>
 import java.io.Serializable;
+<#if table.hasParent>
+import java.util.List;
+</#if>
+
 /**
  * <p>
  * ${table.comment!}

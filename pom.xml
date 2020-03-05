@@ -22,6 +22,7 @@
         <module>framework-validator</module>
         <module>framework-admin</module>
         <module>framework-code-generator</module>
+        <module>framework-common</module>
     </modules>
 
     <name>framework-parent</name>

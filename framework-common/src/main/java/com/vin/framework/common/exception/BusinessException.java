@@ -1,4 +1,4 @@
-package com.vin.framework.core.exception;
+package com.vin.framework.common.exception;
 
 /**
  * 通用业务异常

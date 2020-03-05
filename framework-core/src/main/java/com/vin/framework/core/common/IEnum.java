@@ -1,6 +1,6 @@
 package com.vin.framework.core.common;
 
-import com.vin.framework.core.exception.BusinessException;
+import com.vin.framework.common.exception.BusinessException;
 
 import java.util.Objects;
 

@@ -20,6 +20,11 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>${vin.framework.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

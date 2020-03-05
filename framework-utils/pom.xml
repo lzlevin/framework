@@ -18,6 +18,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>${vin.framework.version}</version>
+        </dependency>
+        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
         </dependency>

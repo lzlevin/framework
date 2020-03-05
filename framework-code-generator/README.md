@@ -30,4 +30,20 @@ dir=
 ##数据库配置
 tables=org
 ```
-
+##特点
++ 如果具有父子关系的表结构(包含id和parent_id)自动生成树形结构接口
++ 如果具有名称的表结构(包含id,name)自动生成简单查询接口（仅返回这两个属性，方便下拉框等展示）
++ 如果具有排序的表结构(包含seq)自动在接口中加入排序字段
++ 表字段注释包含枚举类型说明自动生成枚举类，如userType字段注释为1:微信用户,2:QQ用户，则生成如下代码
+```java
+@AllArgsConstructor
+public enum  UserType implements IEnum<String,String>
+{
+   WXYH("1","微信用户"),
+   QQYH("2","QQ用户");
+   @Getter
+   private String key;
+   @Getter
+   private String value;
+}
+```

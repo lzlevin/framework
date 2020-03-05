@@ -1,5 +1,6 @@
 package ${package.Controller};
 
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,6 +14,9 @@ import com.vin.framework.core.validate.DeleteGroup;
 import com.vin.framework.core.validate.UpdateGroup;
 <#if table.hasParent>
 import com.vin.framework.core.common.Parent;
+</#if>
+<#if table.hasUseFlag>
+import com.vin.framework.core.dto.MultiIdDTO;
 </#if>
 <#if table.hasName>
 import com.vin.framework.core.vo.NameVO;
@@ -171,7 +175,24 @@ public class ${table.controllerName} {
         log.info("[${table.comment!}根据ID删除结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(save);
     }
+
+    /**
+     * 根据主键批量删除
+     *
+     * @param dto 主键
+     * @return
+     */
+    @RequestMapping("remove")
+    public ApiResponse remove(MultiIdDTO dto) {
+        log.info("[${table.comment!}根据ID批量删除开始]，接口名[remove]");
+        long start = System.currentTimeMillis();
+        List<${table.idPropertyType}> split = dto.split(${table.idPropertyType}.class);
+        business.removeByIds(split);
+        log.info("[${table.comment!}根据ID批量删除结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(true);
+    }
     <#if table.hasName>
+
     /**
     * 获取简单列表，可以用于下拉框选择等
     *
@@ -195,6 +216,7 @@ public class ${table.controllerName} {
     </#if>
 
     <#if table.hasParent>
+
     /**
      * 获取树形结构数据
      *
@@ -202,17 +224,66 @@ public class ${table.controllerName} {
      * @return
      */
     @RequestMapping("tree")
-    public ApiResponse tree(OrgDTO dto) {
+    public ApiResponse tree(${table.dtoName} dto) {
         log.info("[${table.comment!}树形查询开始]，接口名[tree]");
         long start = System.currentTimeMillis();
         ${entity} entity = BeanUtil.copyPropertiesClazz(dto, ${entity}.class);
         List<${entity}> list = business.list(getQuery(entity));
         List<${table.voName}> collect = BeanUtil.copyPropertiesList(list, ${table.voName}.class);
-        List<${table.voName}> tree = Parent.treeString(collect);
+        List<${table.voName}> tree = Parent.tree(collect,${table.idPropertyType}.class);
         log.info("[${table.comment!}树形查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(tree);
     }
     </#if>
+    <#if table.hasUseFlag>
+
+    /**
+    * 批量启用
+    *
+    * @param dto 启用id
+    * @return
+    */
+    @RequestMapping("enable")
+    public ApiResponse enable(MultiIdDTO dto) {
+        log.info("[${table.comment!}批量启用开始]，接口名[enable]");
+        long start = System.currentTimeMillis();
+        List<${table.idPropertyType}> split = dto.split(${table.idPropertyType}.class);
+        List<${entity}> collect = split.stream().map(t -> {
+            ${entity} entity = new ${entity}();
+            entity.setUseFlag(true);
+            entity.setId(t);
+            return entity;
+            }
+        ).collect(Collectors.toList());
+        business.updateBatchById(collect);
+        log.info("[${table.comment!}批量启用结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(true);
+    }
+
+    /**
+    * 批量禁用
+    *
+    * @param dto 禁用id
+    * @return
+    */
+    @RequestMapping("disable")
+    public ApiResponse disable(MultiIdDTO dto) {
+        log.info("[${table.comment!}批量禁用开始]，接口名[disable]");
+        long start = System.currentTimeMillis();
+        List<${table.idPropertyType}> split = dto.split(${table.idPropertyType}.class);
+        List<${entity}> collect = split.stream().map(t -> {
+            ${entity} entity = new ${entity}();
+            entity.setUseFlag(false);
+            entity.setId(t);
+            return entity;
+            }
+        ).collect(Collectors.toList());
+        business.updateBatchById(collect);
+        log.info("[${table.comment!}批量禁用结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
+        return ApiResponse.success(true);
+    }
+    </#if>
+
     /**
     * 获取默认的查询条件
     *

@@ -16,4 +16,10 @@
     <packaging>jar</packaging>
     <description>常用工具类</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>

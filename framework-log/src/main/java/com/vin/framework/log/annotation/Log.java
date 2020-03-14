@@ -1,4 +1,4 @@
-package com.vin.framework.log;
+package com.vin.framework.log.annotation;
 
 import java.lang.annotation.*;
 
@@ -25,7 +25,7 @@ public @interface Log {
      *
      * @return 操作
      */
-    String action();
+    String action() default "";
 
     /**
      * 描述信息

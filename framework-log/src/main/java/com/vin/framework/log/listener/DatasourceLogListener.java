@@ -86,8 +86,8 @@ public class DatasourceLogListener implements LogListener {
                 statement.setObject(index + 1, params.get(index));
             }
             statement.executeUpdate();
-        } catch (SQLException e) {
-            log.warn("log write error.", e);
+        } catch (Exception e) {
+            log.debug("log write error.", e);
         } finally {
             if (null != connection) {
                 try {
@@ -121,15 +121,25 @@ public class DatasourceLogListener implements LogListener {
         params.add(event.getClazz().getName());
         params.add(event.getMethod().getName());
         params.add(event.getResponseTime());
-        params.add(event.getRequest());
+        params.add(convert(event.getRequest()));
         params.add(event.getResponseTime());
-        params.add(event.getResponse());
-        params.add(event.getThrowable().toString());
+        params.add(convert(event.getResponse()));
+        params.add(convert(event.getThrowable()));
         params.add(event.getSuccess());
         params.add(event.getUrl());
         params.add(event.getHost());
         params.add(event.getUserId());
         return params;
+    }
+
+    /**
+     * 对象转字符
+     *
+     * @param o
+     * @return
+     */
+    private String convert(Object o) {
+        return null == o ? null : o.toString();
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.vin.framework.log;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.vin.framework.log.annotation.Log;
 import com.vin.framework.log.event.*;
@@ -79,6 +80,7 @@ public class LogInterceptor implements MethodInterceptor {
      */
     private void setBaseInfo(Method method, Log clazzLog, Log methodLog, LogEvent... aware) {
         for (LogEvent logEvent : aware) {
+            logEvent.setBatch(IdUtil.fastSimpleUUID());
             if (null != methodLog) {
                 if (StrUtil.isBlank(methodLog.function()) && null != clazzLog) {
                     logEvent.setFunction(clazzLog.function());

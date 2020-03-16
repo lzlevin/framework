@@ -3,7 +3,12 @@ package com.vin.framework.log.listener;
 import com.vin.framework.log.event.LogAfterEvent;
 import com.vin.framework.log.event.LogAfterThrowingEvent;
 import com.vin.framework.log.event.LogBeforeEvent;
+import com.vin.framework.log.event.LogEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.WeakHashMap;
 
 /**
  * {@link org.slf4j.Logger}的监听器
@@ -13,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Slf4jLogListener implements LogListener {
+
+    WeakHashMap<Class, Logger> loggerCache = new WeakHashMap<>();
+
     /**
      * 执行前的日志记录
      *
@@ -20,7 +28,27 @@ public class Slf4jLogListener implements LogListener {
      */
     @Override
     public void before(LogBeforeEvent event) {
-        log.info(event.toString());
+        if (null == event.getClazz()) {
+            log.info(event.toString());
+        } else {
+            Logger logger = getLogger(event);
+            logger.info(event.toString());
+        }
+    }
+
+    /**
+     * 获取日志对象
+     *
+     * @param event 时间
+     * @return
+     */
+    private Logger getLogger(LogEvent event) {
+        Logger logger = loggerCache.get(event.getClazz());
+        if (logger == null) {
+            logger = LoggerFactory.getLogger(event.getClazz());
+            loggerCache.put(event.getClazz(), logger);
+        }
+        return logger;
     }
 
     /**
@@ -30,7 +58,12 @@ public class Slf4jLogListener implements LogListener {
      */
     @Override
     public void afterThrowing(LogAfterThrowingEvent event) {
-        log.error(event.toString(), event.getThrowable());
+        if (null == event.getClazz()) {
+            log.error(event.toString(), event.getThrowable());
+        } else {
+            Logger logger = getLogger(event);
+            logger.error(event.toString(), event.getThrowable());
+        }
     }
 
     /**
@@ -40,7 +73,12 @@ public class Slf4jLogListener implements LogListener {
      */
     @Override
     public void after(LogAfterEvent event) {
-        log.info(event.toString());
+        if (null == event.getClazz()) {
+            log.info(event.toString());
+        } else {
+            Logger logger = getLogger(event);
+            logger.info(event.toString());
+        }
     }
 
     /**

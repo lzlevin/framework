@@ -1,11 +1,9 @@
 package com.vin.framework.autoconfigure;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanInitializationException;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.*;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.MethodMetadata;
@@ -16,8 +14,8 @@ import org.springframework.core.type.MethodMetadata;
  * @see com.vin.framework.log.listener.StdoutLogListener
  * @since 1.0.0
  */
-public class StdoutCondition implements Condition, ApplicationContextAware {
-    private ApplicationContext context;
+@Order(Ordered.LOWEST_PRECEDENCE)
+public class StdoutCondition implements Condition {
 
     /**
      * Determine if the condition matches.
@@ -30,26 +28,12 @@ public class StdoutCondition implements Condition, ApplicationContextAware {
      */
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        LogConfiguration bean = context.getBeanFactory().getBean(LogConfiguration.class);
-        return bean.isStdout();
+        Boolean property = context.getEnvironment().getProperty(LogConfiguration.DEFAULT_PREFIX + ".stdout", boolean.class);
+        if (null == property) {
+            property = LogConfiguration.DEFAULT_STDOUT_ENABLE;
+        }
+        return property;
     }
 
-    /**
-     * Set the ApplicationContext that this object runs in.
-     * Normally this call will be used to initialize the object.
-     * <p>Invoked after population of normal bean properties but before an init callback such
-     * as {@link InitializingBean#afterPropertiesSet()}
-     * or a custom init-method. Invoked after {@link ResourceLoaderAware#setResourceLoader},
-     * {@link ApplicationEventPublisherAware#setApplicationEventPublisher} and
-     * {@link MessageSourceAware}, if applicable.
-     *
-     * @param applicationContext the ApplicationContext object to be used by this object
-     * @throws ApplicationContextException in case of context initialization errors
-     * @throws BeansException              if thrown by application context methods
-     * @see BeanInitializationException
-     */
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.context = applicationContext;
-    }
+
 }

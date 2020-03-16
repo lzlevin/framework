@@ -2,6 +2,8 @@ package com.vin.framework.autoconfigure;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.MethodMetadata;
@@ -12,6 +14,7 @@ import org.springframework.core.type.MethodMetadata;
  * @see com.vin.framework.log.listener.Slf4jLogListener
  * @since 1.0.0
  */
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class DatabaseCondition implements Condition {
     /**
      * Determine if the condition matches.
@@ -24,7 +27,10 @@ public class DatabaseCondition implements Condition {
      */
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        LogConfiguration bean = context.getBeanFactory().getBean(LogConfiguration.class);
-        return bean.isDatabase();
+        Boolean property = context.getEnvironment().getProperty(LogConfiguration.DEFAULT_PREFIX + ".database", boolean.class);
+        if (null == property) {
+            property = LogConfiguration.DEFAULT_DATABASE_ENABLE;
+        }
+        return property;
     }
 }

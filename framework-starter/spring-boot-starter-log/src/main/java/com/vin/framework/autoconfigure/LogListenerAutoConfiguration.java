@@ -11,7 +11,8 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -25,8 +26,9 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 @Slf4j
-@Configuration
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class LogListenerAutoConfiguration implements ApplicationListener<ApplicationStartedEvent> {
+
 
     @Bean
     @Conditional(StdoutCondition.class)
@@ -61,4 +63,5 @@ public class LogListenerAutoConfiguration implements ApplicationListener<Applica
         String clazz = logListenerStream.stream().map(t -> t.getClass().getSimpleName()).collect(Collectors.joining(","));
         log.info("Add listeners " + clazz);
     }
+
 }

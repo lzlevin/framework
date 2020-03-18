@@ -1,8 +1,9 @@
 package com.vin.framework.admin.constant;
 
-import com.vin.framework.core.entity.KeyValuable;
+import com.vin.framework.core.common.KeyValuable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 
 /**
  * 证件号

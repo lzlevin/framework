@@ -36,13 +36,23 @@ public class LogPointcutAdvisor extends StaticMethodMatcherPointcutAdvisor {
     public boolean matches(Method method, Class<?> targetClass) {
         Log methodAnnotation = method.getAnnotation(Log.class);
         Log clazzAnnotation = method.getDeclaringClass().getAnnotation(Log.class);
-        if (null == method && null == clazzAnnotation) {
+        if (null == methodAnnotation && null == clazzAnnotation) {
             return false;
         }
-        if (clazzAnnotation.ignore()) {
-            return false;
+        //如果父log不为空则先检查父配置
+        if (null != clazzAnnotation) {
+            if (clazzAnnotation.ignore()) {
+                return false;
+            }
+            //父不忽略，则检查子配置
+            else if (null != methodAnnotation) {
+                return !methodAnnotation.ignore();
+            } else {
+                return true;
+            }
+        } else {
+            return !methodAnnotation.ignore();
         }
-        return methodAnnotation.ignore();
     }
 
 }

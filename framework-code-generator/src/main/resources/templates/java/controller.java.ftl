@@ -21,6 +21,7 @@ import com.vin.framework.core.dto.MultiIdDTO;
 <#if table.hasName>
 import com.vin.framework.core.vo.NameVO;
 </#if>
+import com.vin.framework.log.annotation.Log;
 import com.vin.framework.utils.bean.BeanUtil;
 import com.vin.framework.validate.validator.BeanValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,7 @@ import ${superControllerClassPackage};
 @RequestMapping("<#if package.ModuleName??>/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "vin.admin.controller", name = "enabled", havingValue = "true")
+@Log(function = "${table.comment!}")
 <#if kotlin>
 class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
 <#else>
@@ -76,13 +78,12 @@ public class ${table.controllerName} {
      * @return api响应
      */
     @RequestMapping("list")
+    @Log(action = "集合查询")
     public ApiResponse list(${table.dtoName} dto) {
-        log.info("[${table.comment!}查询开始]，接口名[list]");
         long start = System.currentTimeMillis();
         ${entity} entity = BeanUtil.copyPropertiesClazz(dto, ${entity}.class);
         List<${entity}> list = business.list(getQuery(entity));
         List<${table.voName}> collect = BeanUtil.copyPropertiesList(list, ${table.voName}.class);
-        log.info("[${table.comment!}查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(collect);
     }
 
@@ -93,8 +94,8 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("page")
+    @Log(action = "分页查询")
     public ApiResponse page(${table.dtoName} dto) {
-        log.info("[${table.comment!}分页查询开始]，接口名[page]");
         long start = System.currentTimeMillis();
         Page<${entity}> page = new Page<>();
         page.setCurrent(dto.getCurrent());
@@ -105,7 +106,6 @@ public class ${table.controllerName} {
         BeanUtil.copyProperties(result, response, CopyOptions.create().setIgnoreProperties("records", "optimizeCountSql"));
         List<${table.voName}> collect = BeanUtil.copyPropertiesList(result.getRecords(), ${table.voName}.class);
         response.setRecords(collect);
-        log.info("[${table.comment!}分页查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(response);
     }
 
@@ -116,12 +116,11 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("get")
+    @Log(action = "主键查询")
     public ApiResponse get(${table.dtoName} dto) {
-        log.info("[${table.comment!}根据ID查询开始]，接口名[get]");
         long start = System.currentTimeMillis();
         ${entity} entity = business.getById(dto.getId());
         ${table.voName} vo = BeanUtil.copyPropertiesClazz(entity, ${table.voName}.class);
-        log.info("[${table.comment!}根据ID查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(vo);
     }
 
@@ -132,13 +131,12 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("create")
+    @Log(action = "创建")
     public ApiResponse create(${table.dtoName} dto) {
-        log.info("[${table.comment!}创建开始]，接口名[create]");
         long start = System.currentTimeMillis();
         ${entity} entity = BeanUtil.copyPropertiesClazz(dto, ${entity}.class);
         BeanValidator.validate(dto, CreateGroup.class);
         boolean save = business.save(entity);
-        log.info("[${table.comment!}创建结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(save);
     }
 
@@ -149,13 +147,12 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("update")
+    @Log(action = "根据主键更新")
     public ApiResponse update(${table.dtoName} dto) {
-        log.info("[${table.comment!}更新开始]，接口名[update]");
         long start = System.currentTimeMillis();
         ${entity} entity = BeanUtil.copyPropertiesClazz(dto, ${entity}.class);
         BeanValidator.validate(entity, UpdateGroup.class);
         boolean save = business.updateById(entity);
-        log.info("[${table.comment!}更新结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(save);
     }
 
@@ -166,13 +163,12 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("delete")
+    @Log(action = "根据主键删除")
     public ApiResponse delete(${table.dtoName} dto) {
-        log.info("[${table.comment!}根据ID删除开始]，接口名[delete]");
         long start = System.currentTimeMillis();
         ${entity} entity = BeanUtil.copyPropertiesClazz(dto, ${entity}.class);
         BeanValidator.validate(entity, DeleteGroup.class);
         boolean save = business.removeById(entity.getId());
-        log.info("[${table.comment!}根据ID删除结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(save);
     }
 
@@ -183,12 +179,11 @@ public class ${table.controllerName} {
      * @return
      */
     @RequestMapping("remove")
+    @Log(action = "批量删除")
     public ApiResponse remove(MultiIdDTO dto) {
-        log.info("[${table.comment!}根据ID批量删除开始]，接口名[remove]");
         long start = System.currentTimeMillis();
         List<${table.idPropertyType}> split = dto.split(${table.idPropertyType}.class);
         business.removeByIds(split);
-        log.info("[${table.comment!}根据ID批量删除结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(true);
     }
     <#if table.hasName>
@@ -200,8 +195,8 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("simple")
+    @Log(action = "简单列表查询")
     public ApiResponse simple(${table.dtoName} dto) {
-        log.info("[${table.comment!}简单查询开始]，接口名[simple]");
         long start = System.currentTimeMillis();
         ${entity} entity = BeanUtil.copyPropertiesClazz(dto, ${entity}.class);
         List<${entity}> list = business.list(getQuery(entity));
@@ -210,7 +205,6 @@ public class ${table.controllerName} {
             BeanUtil.copyProperties(t, vo);
             return vo;
         }).collect(Collectors.toList());
-        log.info("[${table.comment!}简单查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(collect);
     }
     </#if>
@@ -224,14 +218,13 @@ public class ${table.controllerName} {
      * @return
      */
     @RequestMapping("tree")
+    @Log(action = "树形结构查询")
     public ApiResponse tree(${table.dtoName} dto) {
-        log.info("[${table.comment!}树形查询开始]，接口名[tree]");
         long start = System.currentTimeMillis();
         ${entity} entity = BeanUtil.copyPropertiesClazz(dto, ${entity}.class);
         List<${entity}> list = business.list(getQuery(entity));
         List<${table.voName}> collect = BeanUtil.copyPropertiesList(list, ${table.voName}.class);
         List<${table.voName}> tree = Parent.tree(collect,${table.idPropertyType}.class);
-        log.info("[${table.comment!}树形查询结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(tree);
     }
     </#if>
@@ -244,8 +237,8 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("enable")
+    @Log(action = "批量启用")
     public ApiResponse enable(MultiIdDTO dto) {
-        log.info("[${table.comment!}批量启用开始]，接口名[enable]");
         long start = System.currentTimeMillis();
         List<${table.idPropertyType}> split = dto.split(${table.idPropertyType}.class);
         List<${entity}> collect = split.stream().map(t -> {
@@ -256,7 +249,6 @@ public class ${table.controllerName} {
             }
         ).collect(Collectors.toList());
         business.updateBatchById(collect);
-        log.info("[${table.comment!}批量启用结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(true);
     }
 
@@ -267,8 +259,8 @@ public class ${table.controllerName} {
     * @return
     */
     @RequestMapping("disable")
+    @Log(action = "批量禁用")
     public ApiResponse disable(MultiIdDTO dto) {
-        log.info("[${table.comment!}批量禁用开始]，接口名[disable]");
         long start = System.currentTimeMillis();
         List<${table.idPropertyType}> split = dto.split(${table.idPropertyType}.class);
         List<${entity}> collect = split.stream().map(t -> {
@@ -279,7 +271,6 @@ public class ${table.controllerName} {
             }
         ).collect(Collectors.toList());
         business.updateBatchById(collect);
-        log.info("[${table.comment!}批量禁用结束]，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return ApiResponse.success(true);
     }
     </#if>

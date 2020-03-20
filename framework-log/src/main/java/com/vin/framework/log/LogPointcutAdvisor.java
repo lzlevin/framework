@@ -34,8 +34,15 @@ public class LogPointcutAdvisor extends StaticMethodMatcherPointcutAdvisor {
      */
     @Override
     public boolean matches(Method method, Class<?> targetClass) {
-        boolean b = method.isAnnotationPresent(Log.class) || method.getDeclaringClass().isAnnotationPresent(Log.class);
-        return b;
+        Log methodAnnotation = method.getAnnotation(Log.class);
+        Log clazzAnnotation = method.getDeclaringClass().getAnnotation(Log.class);
+        if (null == method && null == clazzAnnotation) {
+            return false;
+        }
+        if (clazzAnnotation.ignore()) {
+            return false;
+        }
+        return methodAnnotation.ignore();
     }
 
 }

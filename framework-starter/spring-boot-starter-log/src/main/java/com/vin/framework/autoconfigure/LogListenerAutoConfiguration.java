@@ -1,11 +1,13 @@
 package com.vin.framework.autoconfigure;
 
+import com.vin.framework.log.LogPointcutAdvisor;
 import com.vin.framework.log.listener.DatasourceLogListener;
 import com.vin.framework.log.listener.LogListener;
 import com.vin.framework.log.listener.Slf4jLogListener;
 import com.vin.framework.log.listener.StdoutLogListener;
 import com.vin.framework.log.publisher.LogPublisher;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
@@ -15,6 +17,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,8 +41,14 @@ public class LogListenerAutoConfiguration implements ApplicationListener<Applica
 
     @Bean
     @Conditional(Slf4jCondition.class)
-    public Slf4jLogListener vinSlf4jLogListener() {
-        return new Slf4jLogListener();
+    public Slf4jLogListener vinSlf4jLogListener(LogPointcutAdvisor logPointcutAdvisor) {
+        Slf4jLogListener slf4jLogListener = new Slf4jLogListener();
+        logPointcutAdvisor.MATCH_METHOD.stream().map(Method::getDeclaringClass).forEach(
+                t -> slf4jLogListener.LOGGER_CACHE.put(t, LoggerFactory.getLogger(t))
+        );
+        System.out.println(slf4jLogListener.LOGGER_CACHE);
+        logPointcutAdvisor.MATCH_METHOD.clear();
+        return slf4jLogListener;
     }
 
     @Bean

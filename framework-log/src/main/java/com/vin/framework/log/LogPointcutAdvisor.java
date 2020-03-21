@@ -5,6 +5,8 @@ import org.aopalliance.intercept.Interceptor;
 import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 
 import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 日志切面
@@ -13,6 +15,8 @@ import java.lang.reflect.Method;
  * @since 1.0.0
  */
 public class LogPointcutAdvisor extends StaticMethodMatcherPointcutAdvisor {
+
+    public static final Set<Method> MATCH_METHOD = new HashSet<>();
 
     /**
      * 默认构造，注入拦截器
@@ -39,20 +43,24 @@ public class LogPointcutAdvisor extends StaticMethodMatcherPointcutAdvisor {
         if (null == methodAnnotation && null == clazzAnnotation) {
             return false;
         }
+        boolean result = false;
         //如果父log不为空则先检查父配置
         if (null != clazzAnnotation) {
             if (clazzAnnotation.ignore()) {
-                return false;
+                result = false;
             }
             //父不忽略，则检查子配置
             else if (null != methodAnnotation) {
-                return !methodAnnotation.ignore();
+                result = !methodAnnotation.ignore();
             } else {
-                return true;
+                result = true;
             }
         } else {
-            return !methodAnnotation.ignore();
+            result = !methodAnnotation.ignore();
         }
+        if (result ) {
+            MATCH_METHOD.add(method);
+        }
+        return result;
     }
-
 }

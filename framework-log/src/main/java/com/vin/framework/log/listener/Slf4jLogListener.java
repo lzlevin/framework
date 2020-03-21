@@ -6,9 +6,9 @@ import com.vin.framework.log.event.LogBeforeEvent;
 import com.vin.framework.log.event.LogEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * {@link org.slf4j.Logger}的监听器
@@ -19,7 +19,7 @@ import java.util.WeakHashMap;
 @Slf4j
 public class Slf4jLogListener implements LogListener {
 
-    WeakHashMap<Class, Logger> loggerCache = new WeakHashMap<>();
+    public static final Map<Class, Logger> LOGGER_CACHE = new HashMap<>();
 
     /**
      * 执行前的日志记录
@@ -43,11 +43,7 @@ public class Slf4jLogListener implements LogListener {
      * @return
      */
     private Logger getLogger(LogEvent event) {
-        Logger logger = loggerCache.get(event.getClazz());
-        if (logger == null) {
-            logger = LoggerFactory.getLogger(event.getClazz());
-            loggerCache.put(event.getClazz(), logger);
-        }
+        Logger logger = LOGGER_CACHE.get(event.getClazz());
         return logger;
     }
 

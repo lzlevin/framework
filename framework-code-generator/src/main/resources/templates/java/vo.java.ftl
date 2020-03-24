@@ -7,7 +7,7 @@ import ${superVOClassPackage};
 import ${pkg};
 </#list>
 <#if table.hasParent>
-import com.vin.framework.core.common.Parent;
+import com.vf.core.common.Parent;
 </#if>
 <#if swagger2>
 import io.swagger.annotations.ApiModel;

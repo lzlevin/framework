@@ -23,7 +23,7 @@
         <dependency>
             <groupId>com.vin</groupId>
             <artifactId>framework-common</artifactId>
-            <version>${vin.framework.version}</version>
+            <version>${vf.version}</version>
         </dependency>
     </dependencies>
 

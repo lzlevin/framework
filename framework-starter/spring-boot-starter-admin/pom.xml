@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.vin</groupId>
             <artifactId>framework-admin</artifactId>
-            <version>${vin.framework.version}</version>
+            <version>${vf.version}</version>
         </dependency>
     </dependencies>
 </project>

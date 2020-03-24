@@ -21,7 +21,7 @@ jdbc.url=jdbc:mysql://127.0.0.1:3306/framework?useUnicode=true&characterEncoding
 jdbc.username=framework
 jdbc.password=framework
 ##包名配置
-package=com.vin.framework.admin
+package=com.vf.admin
 ##注释配置
 author=levin
 version=1.0.0

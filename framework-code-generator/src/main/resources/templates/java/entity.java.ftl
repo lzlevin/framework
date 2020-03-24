@@ -4,16 +4,16 @@ package ${package.Entity};
 import ${pkg};
 </#list>
 <#if table.hasName>
-import com.vin.framework.core.common.Name;
+import com.vf.core.common.Name;
 </#if>
 <#if table.hasParent>
-import com.vin.framework.core.common.Parent;
+import com.vf.core.common.Parent;
 </#if>
 <#if table.hasUseFlag>
-import com.vin.framework.core.common.UseFlag;
+import com.vf.core.common.UseFlag;
 </#if>
 <#if table.hasSeq>
-import com.vin.framework.core.common.Sequence;
+import com.vf.core.common.Sequence;
 </#if>
 <#if swagger2>
 import io.swagger.annotations.ApiModel;

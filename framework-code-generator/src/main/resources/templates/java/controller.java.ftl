@@ -8,22 +8,22 @@ import ${package.Service}.${table.serviceName};
 import ${package.DTO}.${table.dtoName};
 import ${package.Entity}.${entity};
 import ${package.VO}.${table.voName};
-import com.vin.framework.core.api.ApiResponse;
-import com.vin.framework.core.validate.CreateGroup;
-import com.vin.framework.core.validate.DeleteGroup;
-import com.vin.framework.core.validate.UpdateGroup;
+import com.vf.core.api.ApiResponse;
+import com.vf.core.validate.CreateGroup;
+import com.vf.core.validate.DeleteGroup;
+import com.vf.core.validate.UpdateGroup;
 <#if table.hasParent>
-import com.vin.framework.core.common.Parent;
+import com.vf.core.common.Parent;
 </#if>
 <#if table.hasUseFlag>
-import com.vin.framework.core.dto.MultiIdDTO;
+import com.vf.core.dto.MultiIdDTO;
 </#if>
 <#if table.hasName>
-import com.vin.framework.core.vo.NameVO;
+import com.vf.core.vo.NameVO;
 </#if>
-import com.vin.framework.log.annotation.Log;
-import com.vin.framework.utils.bean.BeanUtil;
-import com.vin.framework.validate.validator.BeanValidator;
+import com.vf.log.annotation.Log;
+import com.vf.utils.bean.BeanUtil;
+import com.vf.validate.validator.BeanValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

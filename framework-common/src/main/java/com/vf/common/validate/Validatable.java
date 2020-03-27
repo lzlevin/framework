@@ -1,4 +1,4 @@
-package com.vf.core.validate;
+package com.vf.common.validate;
 
 /**
  * 合法性校验接口

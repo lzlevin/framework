@@ -3,7 +3,7 @@ package com.vf.admin.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.vf.admin.constant.UserStatus;
 import com.vf.admin.constant.UserType;
-import com.vf.core.validate.CreateGroup;
+import com.vf.validate.group.CreateGroup;
 import com.vf.mybatis.entity.StringKeyBaseEntity;
 import com.vf.validate.constraints.Constant;
 import lombok.Data;

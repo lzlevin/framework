@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Validator;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.vf.admin.constant.CertificateType;
 import com.vf.admin.constant.Gender;
-import com.vf.core.validate.CreateGroup;
+import com.vf.validate.group.CreateGroup;
 import com.vf.mybatis.entity.LongKeyBaseEntity;
 import com.vf.validate.constraints.Constant;
 import com.vf.validate.constraints.Enumerable;

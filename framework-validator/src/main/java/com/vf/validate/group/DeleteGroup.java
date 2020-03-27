@@ -1,4 +1,4 @@
-package com.vf.core.validate;
+package com.vf.validate.group;
 
 /**
  * 默认删除验证组

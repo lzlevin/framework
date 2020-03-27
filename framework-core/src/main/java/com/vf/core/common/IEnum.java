@@ -1,7 +1,5 @@
 package com.vf.core.common;
 
-import com.vf.common.exception.BusinessException;
-
 import java.util.Objects;
 
 /**
@@ -42,7 +40,7 @@ public interface IEnum<K, V> extends KeyValuable<K, V> {
             }
         }
         if (th) {
-            throw new BusinessException("未找到字典值");
+            throw new RuntimeException("未找到字典值");
         } else {
             return null;
         }

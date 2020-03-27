@@ -9,9 +9,9 @@ import ${package.DTO}.${table.dtoName};
 import ${package.Entity}.${entity};
 import ${package.VO}.${table.voName};
 import com.vf.core.api.ApiResponse;
-import com.vf.core.validate.CreateGroup;
-import com.vf.core.validate.DeleteGroup;
-import com.vf.core.validate.UpdateGroup;
+import com.vf.validate.group.CreateGroup;
+import com.vf.validate.group.DeleteGroup;
+import com.vf.validate.group.UpdateGroup;
 <#if table.hasParent>
 import com.vf.core.common.Parent;
 </#if>

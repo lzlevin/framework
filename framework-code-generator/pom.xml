@@ -24,6 +24,11 @@
             <version>${vf.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-mvc</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>

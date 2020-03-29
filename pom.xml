@@ -25,9 +25,6 @@
         <module>framework-common</module>
         <module>framework-log</module>
         <module>framework-mvc</module>
-        <module>framework-mvc</module>
-        <module>framework-mvc</module>
-        <module>framework-mvc</module>
     </modules>
 
     <name>framework-parent</name>

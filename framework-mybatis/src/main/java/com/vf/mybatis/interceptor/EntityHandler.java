@@ -1,9 +1,9 @@
 package com.vf.mybatis.interceptor;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.vf.core.constant.BaseEntityConstant;
-import com.vf.core.entity.BaseEntity;
 import com.vf.core.user.UserHolder;
+import com.vf.mybatis.constant.BaseEntityConstant;
+import com.vf.mybatis.entity.BaseEntity;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.io.Serializable;

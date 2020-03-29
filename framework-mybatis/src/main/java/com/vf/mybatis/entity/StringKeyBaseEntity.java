@@ -6,6 +6,6 @@ package com.vf.mybatis.entity;
  * @author levin
  * @since 1.0.0
  */
-public class StringKeyBaseEntity extends AbstractBaseEntity<String> {
+public class StringKeyBaseEntity extends AbstractBaseEntity<Long> {
 
 }

@@ -1,9 +1,10 @@
 package com.vf.mybatis.service.impl;
 
-import com.vf.core.entity.BaseEntity;
+import com.vf.mybatis.entity.BaseEntity;
 import com.vf.mybatis.mapper.BaseMapper;
 import com.vf.mybatis.service.IService;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Collection;
  * @author levin
  * @since 1.0.0
  */
-public class ServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> extends com.baomidou.mybatisplus.extension.service.impl.ServiceImpl<M, T> implements IService<T> {
+public class ServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<PK>, PK extends Serializable> extends com.baomidou.mybatisplus.extension.service.impl.ServiceImpl<M, T> implements IService<T> {
     /**
      * 批量插入（使用数据库提供支持）
      *

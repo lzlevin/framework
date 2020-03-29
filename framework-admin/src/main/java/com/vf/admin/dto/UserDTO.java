@@ -1,6 +1,6 @@
 package com.vf.admin.dto;
 
-import com.vf.core.dto.BaseDTO;
+import com.vf.mvc.dto.BaseDTO;
 import lombok.Data;
 
 /**

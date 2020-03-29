@@ -1,6 +1,6 @@
 package com.vf.core.user;
 
-import com.vf.core.entity.BaseEntity;
+import com.vf.common.entity.Idable;
 
 import java.io.Serializable;
 
@@ -10,5 +10,5 @@ import java.io.Serializable;
  * @author levin
  * @since 1.0.0
  */
-public interface User<PK extends Serializable> extends BaseEntity<PK> {
+public interface User<PK extends Serializable> extends Idable<PK> {
 }

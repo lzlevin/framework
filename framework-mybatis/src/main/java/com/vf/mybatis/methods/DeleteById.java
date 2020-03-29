@@ -3,7 +3,7 @@ package com.vf.mybatis.methods;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.vf.core.constant.BaseEntityConstant;
+import com.vf.mybatis.constant.BaseEntityConstant;
 import com.vf.mybatis.constant.MethodConstant;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;

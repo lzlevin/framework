@@ -1,15 +1,14 @@
 package com.vf.admin.vo;
 
+import com.vf.mvc.vo.BaseVO;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @author levin
  * @since 1.0.0
  */
 @Data
-public class UserVO implements Serializable {
+public class UserVO extends BaseVO<Long> {
     /**
      * 用户名
      */

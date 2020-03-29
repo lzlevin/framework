@@ -1,7 +1,6 @@
 package com.vf.core.user;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -12,37 +11,7 @@ import java.util.Objects;
  */
 public class UserHolder {
     public static User getUser() {
-        return new LongKeyUser() {
-            @Override
-            public Integer getDeleted() {
-                return null;
-            }
-
-            @Override
-            public String getCreateBy() {
-                return null;
-            }
-
-            @Override
-            public LocalDateTime getCreateTime() {
-                return null;
-            }
-
-            @Override
-            public String getModifyBy() {
-                return null;
-            }
-
-            @Override
-            public LocalDateTime getModifyTime() {
-                return null;
-            }
-
-            @Override
-            public Long getId() {
-                return null;
-            }
-        };
+        return null;
     }
 
     public static Serializable getUserId() {

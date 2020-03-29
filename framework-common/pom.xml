@@ -12,4 +12,11 @@
     <artifactId>framework-common</artifactId>
     <name>framework-common</name>
     <description>系統公用包，提供公用接口、类等</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>

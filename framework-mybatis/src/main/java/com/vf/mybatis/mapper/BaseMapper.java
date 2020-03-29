@@ -1,6 +1,6 @@
 package com.vf.mybatis.mapper;
 
-import com.vf.core.entity.BaseEntity;
+import com.vf.mybatis.entity.BaseEntity;
 
 import java.util.Collection;
 import java.util.Objects;

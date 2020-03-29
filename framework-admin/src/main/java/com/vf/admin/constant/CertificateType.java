@@ -1,6 +1,6 @@
 package com.vf.admin.constant;
 
-import com.vf.core.common.KeyValuable;
+import com.vf.common.entity.KeyValuable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

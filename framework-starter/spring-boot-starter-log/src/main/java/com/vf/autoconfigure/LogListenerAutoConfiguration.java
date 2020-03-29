@@ -46,7 +46,6 @@ public class LogListenerAutoConfiguration implements ApplicationListener<Applica
         logPointcutAdvisor.MATCH_METHOD.stream().map(Method::getDeclaringClass).forEach(
                 t -> slf4jLogListener.LOGGER_CACHE.put(t, LoggerFactory.getLogger(t))
         );
-        System.out.println(slf4jLogListener.LOGGER_CACHE);
         logPointcutAdvisor.MATCH_METHOD.clear();
         return slf4jLogListener;
     }

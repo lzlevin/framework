@@ -1,7 +1,5 @@
 package com.vf.mybatis.service;
 
-import com.vf.core.entity.BaseEntity;
-
 import java.util.Collection;
 
 
@@ -11,7 +9,7 @@ import java.util.Collection;
  * @author levin
  * @since 1.0.0
  */
-public interface IService<T extends BaseEntity> extends com.baomidou.mybatisplus.extension.service.IService<T> {
+public interface IService<T> extends com.baomidou.mybatisplus.extension.service.IService<T> {
     /**
      * 批量插入（使用数据库提供支持）
      *

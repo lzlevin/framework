@@ -36,6 +36,11 @@
             <version>${vf.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-utils</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>

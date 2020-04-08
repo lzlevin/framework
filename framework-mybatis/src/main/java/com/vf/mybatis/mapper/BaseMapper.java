@@ -1,7 +1,5 @@
 package com.vf.mybatis.mapper;
 
-import com.vf.mybatis.entity.BaseEntity;
-
 import java.util.Collection;
 import java.util.Objects;
 
@@ -10,7 +8,7 @@ import java.util.Objects;
  * @author levin
  * @since 1.0.0
  */
-public interface BaseMapper<E extends BaseEntity> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<E> {
+public interface BaseMapper<E> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<E> {
     /**
      * 插入所有数据所有
      *

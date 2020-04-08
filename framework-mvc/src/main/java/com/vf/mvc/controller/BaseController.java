@@ -1,17 +1,17 @@
 package com.vf.mvc.controller;
 
-import com.vf.mvc.dto.BaseDTO;
-import com.vf.mvc.vo.BaseVO;
-import com.vf.mybatis.entity.BaseEntity;
+import com.vf.utils.bean.BeanUtil;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.ParameterizedType;
 
 /**
+ * 基础controller接口
+ *
  * @author levin
  * @since 1.0.0
  */
-public interface BaseController<VO extends BaseVO<Long>, DTO extends BaseDTO<Long>, E extends BaseEntity<Long>> {
+public interface BaseController<VO, DTO, E, PO> {
 
     /**
      * 创建VO
@@ -19,30 +19,16 @@ public interface BaseController<VO extends BaseVO<Long>, DTO extends BaseDTO<Lon
      * @return
      */
     @SneakyThrows
-    default VO createVO() {
-        Class<VO> vo = (Class<VO>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[0];
-        return vo.newInstance();
+    default VO createVO(PO po) {
+        return BeanUtil.copyPropertiesClazz(po, getClassVO());
     }
 
     /**
-     * 创建DTO
+     * 获取VO的class
      *
-     * @return
+     * @return VO的class
      */
-    @SneakyThrows
-    default DTO createDTO() {
-        Class<DTO> dto = (Class<DTO>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[1];
-        return dto.newInstance();
-    }
-
-    /**
-     * 创建entity
-     *
-     * @return
-     */
-    @SneakyThrows
-    default E createEntity() {
-        Class<E> e = (Class<E>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[2];
-        return e.newInstance();
+    default Class<VO> getClassVO() {
+        return (Class<VO>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[3];
     }
 }

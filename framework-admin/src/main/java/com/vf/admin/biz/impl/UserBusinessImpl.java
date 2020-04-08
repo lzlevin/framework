@@ -11,5 +11,5 @@ import org.springframework.stereotype.Service;
  * @since 1.0.0
  */
 @Service
-public class UserBusinessImpl extends ServiceImpl<UserMapper, UserEntity, Long> implements UserBusiness {
+public class UserBusinessImpl extends ServiceImpl<UserMapper, UserEntity> implements UserBusiness {
 }

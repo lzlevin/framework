@@ -1,8 +1,8 @@
 package com.vf.mvc.service;
 
 import com.vf.log.annotation.Log;
-import com.vf.mybatis.entity.BaseEntity;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Collection;
  * @author levin
  * @since 1.0.0
  */
-public interface DeleteService<E extends BaseEntity<Long>> extends BaseService<E> {
+public interface DeleteService<E,DTO,PO> extends BaseService<E,DTO,PO> {
 
     /**
      * 根据ID删除一条
@@ -20,7 +20,7 @@ public interface DeleteService<E extends BaseEntity<Long>> extends BaseService<E
      * @return 是否删除成功
      */
     @Log(action = "根据ID删除")
-    default boolean removeById(Long id) {
+    default boolean removeById(Serializable id) {
         return getDao().removeById(id);
     }
 
@@ -31,7 +31,7 @@ public interface DeleteService<E extends BaseEntity<Long>> extends BaseService<E
      * @return 是否删除成功
      */
     @Log(action = "根据ID批量删除")
-    default boolean removeByIds(Collection<Long> ids) {
+    default boolean removeByIds(Collection<Serializable> ids) {
         return getDao().removeByIds(ids);
     }
 }

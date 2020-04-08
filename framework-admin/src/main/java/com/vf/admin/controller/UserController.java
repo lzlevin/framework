@@ -2,6 +2,7 @@ package com.vf.admin.controller;
 
 import com.vf.admin.dto.UserDTO;
 import com.vf.admin.entity.UserEntity;
+import com.vf.admin.po.UserPO;
 import com.vf.admin.service.IUserService;
 import com.vf.admin.vo.UserVO;
 import com.vf.mvc.controller.CurdController;
@@ -22,13 +23,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "vin.admin.controller", name = "enabled", havingValue = "true")
-public class UserController implements CurdController<UserVO, UserDTO, UserEntity> {
+public class UserController implements CurdController<UserVO, UserDTO, UserEntity, UserPO> {
 
     @Autowired
     private IUserService service;
 
+    /**
+     * curd服务
+     *
+     * @return curd服务
+     */
     @Override
-    public <S extends CurdService<UserEntity>> S getService() {
+    public <S extends CurdService<UserEntity, UserDTO, UserPO>> S getService() {
         return (S) service;
     }
 }

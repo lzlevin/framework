@@ -202,6 +202,16 @@
             <name>vin-framework-site</name>
             <url>sftp://framework.lzlevin.cn/</url>
         </site>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/lzlevin</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/lzlevin</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <build>

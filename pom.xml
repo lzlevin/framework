@@ -51,6 +51,7 @@
         <commons-chain.version>1.2</commons-chain.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <commons-vfs2.version>2.5.0</commons-vfs2.version>
+        <guava.version>10.0.1</guava.version>
     </properties>
 
     <dependencies>
@@ -204,7 +205,11 @@
                 <artifactId>commons-vfs2</artifactId>
                 <version>${commons-vfs2.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

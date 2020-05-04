@@ -1,7 +1,6 @@
 package com.vf.admin.service.impl;
 
 import com.vf.admin.biz.UserBusiness;
-import com.vf.admin.dto.UserDTO;
 import com.vf.admin.entity.UserEntity;
 import com.vf.admin.po.UserPO;
 import com.vf.admin.service.IUserService;
@@ -32,16 +31,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Class<UserEntity> getClazzEntity() {
         return UserEntity.class;
-    }
-
-    /**
-     * 获取DTO的class
-     *
-     * @return DTO的class
-     */
-    @Override
-    public Class<UserDTO> getClassDTO() {
-        return UserDTO.class;
     }
 
     /**

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * @since 1.0.0
  */
 @Data
-@TableName("user")
+@TableName("sys_user")
 public class UserEntity extends StringKeyBaseEntity {
 
     /**

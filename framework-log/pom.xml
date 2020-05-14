@@ -23,6 +23,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-core</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
         </dependency>

@@ -2,6 +2,8 @@ package com.vf.log;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.vf.core.request.RequestHolder;
+import com.vf.core.user.UserHolder;
 import com.vf.log.annotation.Log;
 import com.vf.log.event.*;
 import com.vf.log.publisher.LogPublisher;
@@ -121,6 +123,9 @@ public class LogInterceptor implements MethodInterceptor {
             if (null != methodLog ? methodLog.request() : clazzLog.request()) {
                 aware.setRequest(args);
             }
+            aware.setUrl(RequestHolder.getUrl());
+            aware.setHost(RequestHolder.getHost());
+            aware.setUserId(null == UserHolder.getUserId() ? null : UserHolder.getUserId().toString());
         }
     }
 

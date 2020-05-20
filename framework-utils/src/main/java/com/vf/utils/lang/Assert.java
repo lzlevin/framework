@@ -125,7 +125,7 @@ public class Assert extends cn.hutool.core.lang.Assert {
      * @see StrUtil#isBlank(CharSequence)
      */
     public static <T extends CharSequence> T isBlank(T text, String errorMsgTemplate, Object... params) throws BusinessException {
-        isTrue(StrUtil.isNotBlank(text), errorMsgTemplate, params);
+        isTrue(StrUtil.isBlank(text), errorMsgTemplate, params);
         return text;
     }
 
@@ -139,7 +139,7 @@ public class Assert extends cn.hutool.core.lang.Assert {
      * @see StrUtil#isBlank(CharSequence)
      */
     public static <T extends CharSequence> T isBlank(T text) throws BusinessException {
-        isTrue(StrUtil.isNotBlank(text), "[Assertion failed] - this argument is required; it must be not blank");
+        isTrue(StrUtil.isBlank(text), "[Assertion failed] - this argument is required; it must be not blank");
         return text;
     }
 

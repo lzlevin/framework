@@ -1,11 +1,16 @@
 package com.vf.task.groovy;
 
+import com.vf.utils.lang.Assert;
 import groovy.lang.GroovyClassLoader;
+import lombok.Getter;
 import org.codehaus.groovy.control.CompilerConfiguration;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Groovy脚本管理器，提供脚本的读取、更新操作
@@ -18,25 +23,50 @@ import java.util.Set;
  * @since 1.0.0
  */
 public class GroovyScriptManager {
-    public static void main(String[] args) {
-        new GroovyScriptManager(null);
-    }
-
     private final ClassLoader parentLoader;
     private GroovyClassLoader groovyLoader;
     private GroovyScriptReader connector;
     private CompilerConfiguration config;
+    private final Map<String, ScriptCacheEntry> scriptCache = new ConcurrentHashMap<>();
 
     {
         config = new CompilerConfiguration(CompilerConfiguration.DEFAULT);
         config.setSourceEncoding(CompilerConfiguration.DEFAULT_SOURCE_ENCODING);
     }
 
-    public Class loadScriptByName(String scriptName) throws GroovyScriptException {
-        Class clazz = groovyLoader.parseClass(connector.getContent(scriptName));
-        return clazz;
+    /**
+     * load script class
+     *
+     * @param scriptName script name
+     * @return script class
+     * @throws GroovyScriptException load error
+     */
+    public ScriptCacheEntry loadScriptByName(String scriptName) throws GroovyScriptException {
+        Assert.isBlank(scriptName, "script must be not blank");
+        LocalDateTime modifiedTime = connector.getModifiedTime(scriptName);
+        ScriptCacheEntry scriptCacheEntry = scriptCache.get(scriptName);
+
+        //first time.script is newer
+        if (scriptCacheEntry == null) {
+            scriptCacheEntry = new ScriptCacheEntry();
+            scriptCacheEntry.sourceNewer = true;
+        } else {//second time.script is older
+            scriptCacheEntry.sourceNewer = false;
+        }
+        if (null == scriptCacheEntry.lastModified || modifiedTime.compareTo(scriptCacheEntry.lastModified) > 0) {
+            scriptCacheEntry.sourceNewer = true;
+            scriptCacheEntry.lastModified = modifiedTime;
+            scriptCacheEntry.scriptClass = groovyLoader.parseClass(connector.getContent(scriptName));
+        }
+        scriptCache.put(scriptName, scriptCacheEntry);
+        return scriptCacheEntry;
     }
 
+    /**
+     * init groovy script manager
+     *
+     * @param connector
+     */
     public GroovyScriptManager(GroovyScriptReader connector) {
         if (null == connector) {
             throw new IllegalArgumentException("ResourceConnector is null");
@@ -64,13 +94,34 @@ public class GroovyScriptManager {
         return groovyClassLoader;
     }
 
-    static class ScriptCacheEntry {
-        private final Class scriptClass;
-        private final long lastModified, lastCheck;
-        private final Set<String> dependencies;
-        private final boolean sourceNewer;
+    /**
+     * ScriptCacheEntry
+     */
+    @Getter
+    public static class ScriptCacheEntry {
+        /**
+         * the groovy script class,groovy shell must be {@link groovy.lang.Script}
+         */
+        private Class scriptClass;
+        /**
+         * script last modified
+         */
+        private LocalDateTime lastModified;
+        /**
+         * last check in
+         */
+        private LocalDateTime lastCheck;
+        /**
+         *
+         */
+        private Set<String> dependencies;
+        private boolean sourceNewer;
 
-        public ScriptCacheEntry(Class clazz, long modified, long lastCheck, Set<String> depend, boolean sourceNewer) {
+        public ScriptCacheEntry() {
+            sourceNewer = true;
+        }
+
+        public ScriptCacheEntry(Class clazz, LocalDateTime modified, LocalDateTime lastCheck, Set<String> depend, boolean sourceNewer) {
             this.scriptClass = clazz;
             this.lastModified = modified;
             this.lastCheck = lastCheck;
@@ -78,13 +129,15 @@ public class GroovyScriptManager {
             this.sourceNewer = sourceNewer;
         }
 
-        public ScriptCacheEntry(ScriptCacheEntry old, long lastCheck, boolean sourceNewer) {
+        public ScriptCacheEntry(ScriptCacheEntry old, LocalDateTime lastCheck, boolean sourceNewer) {
             this(old.scriptClass, old.lastModified, lastCheck, old.dependencies, sourceNewer);
         }
     }
 
+    /**
+     * script class loader
+     */
     class ScriptClassLoader extends GroovyClassLoader {
-
 
         public ScriptClassLoader(GroovyClassLoader loader) {
             super(loader);

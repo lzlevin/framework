@@ -61,10 +61,10 @@ public class SimpleDatabaseConnector implements GroovyScriptReader {
             throw new GroovyScriptException(key, e);
         }
         if (scriptInfos.isEmpty()) {
-            throw new GroovyScriptException(key);
+            throw GroovyScriptException.notExist(key, null);
         }
         if (scriptInfos.size() > 1) {
-            throw new GroovyScriptException(key);
+            throw GroovyScriptException.loadError(key, null);
         }
         return scriptInfos.get(0);
     }

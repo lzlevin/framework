@@ -9,4 +9,18 @@ import com.vf.task.common.AbstractTask;
  * @since 1.0.0
  */
 public class Db2FileTask extends AbstractTask {
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void execute(Object... args) {
+
+    }
+
+    @Override
+    public void reconfigure() {
+
+    }
 }

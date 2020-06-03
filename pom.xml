@@ -53,6 +53,7 @@
         <commons-vfs2.version>2.5.0</commons-vfs2.version>
         <guava.version>10.0.1</guava.version>
         <jboss-vfs.version>3.2.14.Final</jboss-vfs.version>
+        <commons-chain.verion>1.2</commons-chain.verion>
     </properties>
 
     <dependencies>
@@ -60,6 +61,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -207,6 +212,11 @@
                 <version>${commons-dbutils.version}</version>
             </dependency>
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.7</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-vfs2</artifactId>
                 <version>${commons-vfs2.version}</version>
@@ -220,6 +230,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-chain</groupId>
+                <artifactId>commons-chain</artifactId>
+                <version>${commons-chain.verion}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,16 +1,16 @@
 package com.vf.task.file.file;
 
-import com.vf.task.common.AbstractTask;
-import com.vf.task.file.strategy.FileFilter;
+import com.vf.task.file.AbstractFileTask;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.vfs2.*;
+import org.apache.commons.vfs2.FileObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,23 +21,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 1.0.0
  */
 @Slf4j
-public class File2FileTask extends AbstractTask {
+@Getter
+@Setter
+public class File2FileTask extends AbstractFileTask {
 
-    public static FileSystemManager DEFAULT_FILE_SYSTEM_MANAGER;
-
-    static {
-        try {
-            DEFAULT_FILE_SYSTEM_MANAGER = VFS.getManager();
-        } catch (FileSystemException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 原始文件url，支持{@link org.apache.commons.vfs2.VFS}<br>
-     * 支持目录和文件
-     */
-    private String sourceFileUrl;
     /**
      * 目标文件url<br>
      * 支持目录和文件，如果{@code sourceFileUrl}为文件路径，则此属性也必须为文件路径<br>
@@ -57,11 +44,6 @@ public class File2FileTask extends AbstractTask {
      * 重命名策略
      */
     private FileRenameHandler fileRenameHandler;
-    /**
-     * 文件过滤器，如果<code>sourceFileUrl</code>为文件，则此属性失效<br>
-     * 且此属性按照相对于<code>sourceFileUrl</code>的相对路径传入变量
-     */
-    private FileFilter filter;
     /**
      * 文件处理器
      */
@@ -85,7 +67,7 @@ public class File2FileTask extends AbstractTask {
      *
      * @param files 源文件
      */
-    private void handleFiles(List<FileObject> files) throws IOException {
+    public void handleFiles(List<FileObject> files) throws IOException {
         List<FileObject> destList = new ArrayList<>(files.size());
         FileObject source = DEFAULT_FILE_SYSTEM_MANAGER.resolveFile(sourceFileUrl);
         FileObject dest = DEFAULT_FILE_SYSTEM_MANAGER.resolveFile(destFileUrl);
@@ -138,50 +120,5 @@ public class File2FileTask extends AbstractTask {
                 throw ex;
             }
         }
-    }
-
-    /**
-     * 根据源文件和过滤器扫描要执行的文件
-     *
-     * @return 文件集合（全路径）
-     */
-    private List<FileObject> scanFile() throws IOException {
-        List<FileObject> files = new ArrayList<>();
-        FileObject source = DEFAULT_FILE_SYSTEM_MANAGER.resolveFile(sourceFileUrl);
-        if (!source.exists()) {
-            return Collections.emptyList();
-        }
-        if (source.isFile()) {
-            files.add(source);
-            return files;
-        }
-        FileObject[] objects = source.findFiles(new AllFileSelector());
-        final FileFilter fileFilter = null == filter ? FileFilter.NO_FILE_FILTER : this.filter;
-        for (FileObject object : objects) {
-            String relativeName = source.getName().getRelativeName(object.getName());
-            String baseName = source.getName().getBaseName();
-            if (object.isFile() && fileFilter.accept(relativeName, baseName)) {
-                files.add(object);
-            }
-        }
-        return files;
-    }
-
-    @Override
-    public void execute(Object... args) {
-        List<FileObject> files = null;
-        try {
-            files = scanFile();
-            log.info("scan {} files from [{}]", files.size(), sourceFileUrl);
-            handleFiles(files);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void reconfigure() {
-
     }
 }

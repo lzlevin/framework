@@ -28,14 +28,33 @@ public abstract class AbstractTask {
      */
     public abstract void init();
 
+
+    public void go(Object... args) {
+        beforeExecute();
+        execute(args);
+        afterExecute();
+    }
+
+    /**
+     * 执行前的操作
+     */
+    protected void beforeExecute() {
+    }
+
     /**
      * 执行任务
      */
-    public abstract void execute(Object... args);
+    protected abstract void execute(Object... args);
+
+    /**
+     * 执行后的操作
+     */
+    protected void afterExecute() {
+    }
 
     /**
      * 重新配置
      */
     public abstract void reconfigure();
-    
+
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd"
+         name="framework">
+
+    <bannerLeft>
+        <name>framework</name>
+        <src>images/logo.png</src>
+        <height>80px</height>
+    </bannerLeft>
+
+    <body>
+        <breadcrumbs>
+            <item name="framework" href="https://framework.lzlevin.cn"/>
+        </breadcrumbs>
+
+        <menu name="Overview">
+            <item name="Introduction" href="index.html"/>
+            <item name="JavaDocs" href="apidocs/index.html"/>
+        </menu>
+
+        <menu ref="modules"/>
+        <menu ref="reports"/>
+
+        <links>
+            <item name="Levin's Blog" href="https://blog.lzlevin.cn"/>
+            <item name="SaiJohn'S Github" href="https://github.com/youshouyiqi"/>
+            <item name="Levin'S Github" href="https://github.com/lzlevin"/>
+        </links>
+
+    </body>
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
+
+    <custom>
+        <fluidoSkin>
+            <breadcrumbDivider>/</breadcrumbDivider>
+        </fluidoSkin>
+    </custom>
+
+</project>

@@ -16,4 +16,15 @@
     <packaging>jar</packaging>
     <description>常用工具类</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -13,15 +13,16 @@
     <artifactId>framework-validator</artifactId>
 
     <name>framework-validator</name>
+    <description>bean验证包，对原始validator进行扩展</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

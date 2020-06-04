@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>framework-parent</artifactId>
+        <groupId>com.vin</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>framework-mvc</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-mybatis</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-log</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-validator</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-utils</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+    </dependencies>
+</project>

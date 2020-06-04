@@ -15,4 +15,16 @@
     <name>framework-core</name>
     <description>系統核心包</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vin</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>${vf.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

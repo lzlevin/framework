@@ -13,4 +13,9 @@ public interface Idable<ID> {
      * @return ID值
      */
     ID getId();
+
+    /**
+     * 设置ID
+     */
+    void setId(ID id);
 }

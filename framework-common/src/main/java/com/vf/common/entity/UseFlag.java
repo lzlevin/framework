@@ -7,6 +7,14 @@ package com.vf.common.entity;
  * @since 1.0.0
  */
 public interface UseFlag {
+    /**
+     * 启用
+     */
+    Boolean ENABLE = true;
+    /**
+     * 停用
+     */
+    Boolean DISABLE = false;
 
     /**
      * 获取启用标识

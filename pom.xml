@@ -26,6 +26,7 @@
         <module>framework-log</module>
         <module>framework-mvc</module>
         <module>framework-task</module>
+        <module>framework-lock</module>
     </modules>
 
     <name>framework-parent</name>
@@ -54,6 +55,7 @@
         <guava.version>10.0.1</guava.version>
         <jboss-vfs.version>3.2.14.Final</jboss-vfs.version>
         <commons-chain.verion>1.2</commons-chain.verion>
+        <redisson.version>3.12.0</redisson.version>
     </properties>
 
     <dependencies>
@@ -235,6 +237,16 @@
                 <groupId>commons-chain</groupId>
                 <artifactId>commons-chain</artifactId>
                 <version>${commons-chain.verion}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

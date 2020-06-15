@@ -5,9 +5,10 @@ import com.vf.lock.aop.LockAnnotationPointcutAdvisor;
 import com.vf.lock.config.LockConfig;
 import com.vf.lock.utils.LockHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Role;
 
 /**
  * @author levin
@@ -15,7 +16,9 @@ import org.springframework.context.annotation.Bean;
  * @since 1.0.0
  */
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class LockAutoConfiguration {
+
     @Bean
     @ConfigurationProperties(prefix = "vin.lock")
     public LockConfig lockConfig() {
@@ -23,16 +26,18 @@ public class LockAutoConfiguration {
     }
 
     @Bean
-    public LockHelper lockHelper(RedissonClient redissonClient, LockConfig lockConfig) {
-        return new LockHelper(redissonClient, lockConfig);
+    public LockHelper lockHelper(LockConfig lockConfig) {
+        return new LockHelper(lockConfig);
     }
 
     @Bean
-    public LockAnnotationAdvice lockAnnotationAdvice(LockHelper lockHelper) {
-        return new LockAnnotationAdvice(lockHelper);
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public LockAnnotationAdvice lockAnnotationAdvice() {
+        return new LockAnnotationAdvice();
     }
 
     @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public LockAnnotationPointcutAdvisor lockAnnotationPointcutAdvisor(LockAnnotationAdvice advice) {
         return new LockAnnotationPointcutAdvisor(advice);
     }

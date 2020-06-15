@@ -7,6 +7,10 @@ import com.vf.utils.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,16 +22,17 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Slf4j
-public final class LockHelper {
+public final class LockHelper implements BeanFactoryAware, SmartInitializingSingleton {
 
-    private final RedissonClient redissonClient;
+    private RedissonClient redissonClient;
+    private BeanFactory beanFactory;
 
     private final LockConfig lockConfig;
 
-    public LockHelper(RedissonClient redissonClient, LockConfig lockConfig) {
-        this.redissonClient = redissonClient;
+    public LockHelper(LockConfig lockConfig) {
         this.lockConfig = lockConfig;
     }
+
 
     /**
      * 加锁（可重入锁）并执行操作
@@ -89,5 +94,16 @@ public final class LockHelper {
      */
     public int resolveTime(int time) {
         return time < 0 ? lockConfig.getWaitTime() : time;
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void afterSingletonsInstantiated() {
+        RedissonClient bean = beanFactory.getBean(RedissonClient.class);
+        this.redissonClient = bean;
     }
 }

@@ -1,6 +1,5 @@
 package com.vf.mvc.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,8 +11,8 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @Data
-@AllArgsConstructor
 public class ApiResponse implements Serializable {
+
     /**
      * 请求是否成功，只有状态为200时为成功
      */
@@ -30,8 +29,21 @@ public class ApiResponse implements Serializable {
      * 响应数据
      */
     private Object data;
+    /**
+     * 时间戳
+     */
+    private long timestamp;
 
-    public ApiResponse() {
+    private ApiResponse() {
+        this.timestamp = System.currentTimeMillis();
+    }
+
+    public ApiResponse(Boolean success, Integer status, String message, Object data) {
+        this();
+        this.success = success;
+        this.status = status;
+        this.message = message;
+        this.data = data;
     }
 
     public static ApiResponse success() {

@@ -31,7 +31,7 @@ public class LockAnnotationAdvice implements MethodInterceptor, BeanFactoryAware
         if (initialized) {
             Lock annotation = invocation.getMethod().getAnnotation(Lock.class);
             String key = lockKeyResolver.resolveKey(invocation.getMethod(), invocation.getArguments());
-            return lockHelper.tryLock(key, annotation.lockType(), annotation.waitTime(), annotation.leaseTime(), () -> invocation.proceed());
+            return lockHelper.tryLock(key, annotation.lockType(), annotation.waitTime(), annotation.leaseTime(), () -> invocation.proceed(), annotation.message());
         } else {
             return invocation.proceed();
         }

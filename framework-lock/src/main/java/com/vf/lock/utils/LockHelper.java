@@ -1,5 +1,6 @@
 package com.vf.lock.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.vf.lock.config.LockConfig;
 import com.vf.lock.model.LockException;
 import com.vf.lock.model.LockType;
@@ -43,16 +44,22 @@ public final class LockHelper implements BeanFactoryAware, SmartInitializingSing
      * @param lockType 锁类型
      * @return 返回结果
      */
-    public <T> T tryLock(String name, LockType lockType, int waitTime, int leaseTime, Supplier<T> supplier) throws Throwable {
+    public <T> T tryLock(String name, LockType lockType, int waitTime, int leaseTime, Supplier<T> supplier, String message) throws Throwable {
         Assert.isNull(redissonClient, "supplier must be not null");
+        if (StrUtil.isBlank(message)) {
+            message = LockException.DEFAULT_MESSAGE;
+        }
         RLock lock = null;
         try {
             log.info("get lock {}", name);
             lock = getLock(name, lockType);
-            lock.tryLock(resolveTime(waitTime), resolveTime(leaseTime), TimeUnit.SECONDS);
+            boolean locked = lock.tryLock(resolveTime(waitTime), resolveTime(leaseTime), TimeUnit.SECONDS);
+            if (!locked) {
+                throw new LockException(message);
+            }
             return supplier.get();
         } catch (InterruptedException e) {
-            throw new LockException(e);
+            throw new LockException(message, e);
         } finally {
             if (null != lock && lock.isHeldByCurrentThread()) {
                 log.info("release lock {}", name);

@@ -13,6 +13,10 @@ public class LockException extends RuntimeException {
         this(DEFAULT_MESSAGE);
     }
 
+    public LockException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public LockException(String message) {
         super(message);
     }

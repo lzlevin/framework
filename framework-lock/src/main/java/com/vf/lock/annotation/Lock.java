@@ -50,4 +50,11 @@ public @interface Lock {
      * @return spring el表达式
      */
     String spEl() default "";
+
+    /**
+     * 异常消息
+     *
+     * @return 异常消息
+     */
+    String message() default "";
 }

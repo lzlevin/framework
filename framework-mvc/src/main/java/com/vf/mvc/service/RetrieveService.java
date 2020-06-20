@@ -38,8 +38,7 @@ public interface RetrieveService<E, DTO, PO> extends BaseService<E, DTO, PO> {
     @Log(action = "根据条件查询")
     default List<PO> list(DTO dto) {
         Assert.isNull(dto, "查询条件不能为空");
-        E entity = createEntity(dto);
-        List<E> list = getDao().list(Wrappers.query(entity));
+        List<E> list = getDao().list(WrapperUtils.wrapper(Wrappers.lambdaQuery(createEntity(dto))));
         return list.stream().map(t -> createPO(t)).collect(Collectors.toList());
     }
 

@@ -26,7 +26,7 @@ public interface RetrievePageService<E, DTO, PO> extends BaseService<E, DTO, PO>
     default <P extends IPage<E>> IPage<PO> page(P page, DTO dto) {
         Assert.isNull(page, "分页信息不能为空");
         Assert.isNull(dto, "查询条件不能为空");
-        P result = getDao().page(page, Wrappers.query(createEntity(dto)));
+        P result = getDao().page(page, WrapperUtils.wrapper(Wrappers.lambdaQuery(createEntity(dto))));
         IPage<PO> convert = result.convert(t -> createPO(t));
         return convert;
     }

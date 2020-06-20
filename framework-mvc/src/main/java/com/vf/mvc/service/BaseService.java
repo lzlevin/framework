@@ -1,11 +1,9 @@
 package com.vf.mvc.service;
 
-import com.vf.common.exception.BusinessException;
 import com.vf.mybatis.service.IService;
 import com.vf.utils.bean.BeanUtil;
-import lombok.SneakyThrows;
+import org.springframework.core.ResolvableType;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -36,9 +34,14 @@ public interface BaseService<E, DTO, PO> {
      * @param dto DTO转化为entity
      * @return entity
      */
-    @SneakyThrows
     default E createEntity(DTO dto) {
-        return BeanUtil.copyPropertiesClazz(dto, getClazzEntity());
+        if (null == dto) {
+            return null;
+        } else if (dto.getClass().equals(getClazzEntity())) {
+            return (E) dto;
+        } else {
+            return BeanUtil.copyPropertiesClazz(dto, getClazzEntity());
+        }
     }
 
     /**
@@ -47,11 +50,11 @@ public interface BaseService<E, DTO, PO> {
      * @return 实体
      */
     default E createEntity() {
-        Class<E> clazzEntity = getClazzEntity();
         try {
-            return clazzEntity.newInstance();
+            Class<E> clazzEntity = getClazzEntity();
+            return clazzEntity.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
-            throw new BusinessException("创建实体错误");
+            throw new RuntimeException(ex);
         }
     }
 
@@ -74,7 +77,9 @@ public interface BaseService<E, DTO, PO> {
      * @return entity的class
      */
     default Class<E> getClazzEntity() {
-        return (Class<E>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[0];
+        ResolvableType as = ResolvableType.forClass(getClass()).as(BaseService.class);
+        ResolvableType generic = as.getGeneric(0);
+        return (Class<E>) generic.toClass();
     }
 
     /**
@@ -82,9 +87,14 @@ public interface BaseService<E, DTO, PO> {
      *
      * @return
      */
-    @SneakyThrows
     default PO createPO(E entity) {
-        return BeanUtil.copyPropertiesClazz(entity, getClassPO());
+        if (null == entity) {
+            return null;
+        } else if (entity.getClass().equals(getClassPO())) {
+            return (PO) entity;
+        } else {
+            return BeanUtil.copyPropertiesClazz(entity, getClassPO());
+        }
     }
 
     /**
@@ -106,7 +116,18 @@ public interface BaseService<E, DTO, PO> {
      * @return PO的class
      */
     default Class<PO> getClassPO() {
-        return (Class<PO>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[2];
+        ResolvableType as = ResolvableType.forClass(getClass()).as(BaseService.class);
+        ResolvableType generic = as.getGeneric(2);
+        return (Class<PO>) generic.toClass();
     }
 
+    /**
+     * 获取DTO的class
+     *
+     * @return DTO class
+     */
+    default Class<DTO> getClassDTO() {
+        ResolvableType as = ResolvableType.forClass(getClass()).as(BaseService.class);
+        return (Class<DTO>) as.getGeneric(1).toClass();
+    }
 }

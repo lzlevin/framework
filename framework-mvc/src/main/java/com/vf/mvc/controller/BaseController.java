@@ -1,10 +1,9 @@
 package com.vf.mvc.controller;
 
 import com.vf.utils.bean.BeanUtil;
-import lombok.SneakyThrows;
+import org.springframework.core.ResolvableType;
 import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +21,14 @@ public interface BaseController<VO, DTO, E, PO> {
      *
      * @return
      */
-    @SneakyThrows
     default VO createVO(PO po) {
-        return BeanUtil.copyPropertiesClazz(po, getClassVO());
+        if (null == po) {
+            return null;
+        } else if (po.getClass() == getClassVO()) {
+            return (VO) po;
+        } else {
+            return BeanUtil.copyPropertiesClazz(po, getClassVO());
+        }
     }
 
     /**
@@ -33,7 +37,9 @@ public interface BaseController<VO, DTO, E, PO> {
      * @return VO的class
      */
     default Class<VO> getClassVO() {
-        return (Class<VO>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[3];
+        ResolvableType as = ResolvableType.forClass(getClass()).as(BaseController.class);
+        ResolvableType generic = as.getGeneric(0);
+        return (Class<VO>) generic.toClass();
     }
 
     /**
@@ -46,7 +52,6 @@ public interface BaseController<VO, DTO, E, PO> {
         if (CollectionUtils.isEmpty(pos)) {
             return Collections.emptyList();
         }
-        List<VO> collect = pos.stream().map(this::createVO).collect(Collectors.toList());
-        return collect;
+        return pos.stream().map(this::createVO).collect(Collectors.toList());
     }
 }

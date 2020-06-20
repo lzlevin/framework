@@ -27,7 +27,7 @@ public interface UseFlagController<VO, DTO, E extends UseFlag & Idable<Long>, PO
     /**
      * 默认ID分隔符
      */
-    public static final String DEFAULT_ID_SPLIT = ",";
+    String DEFAULT_ID_SPLIT = ",";
 
     /**
      * 禁启用服务

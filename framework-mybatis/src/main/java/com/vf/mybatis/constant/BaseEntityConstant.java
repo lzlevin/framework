@@ -2,6 +2,7 @@ package com.vf.mybatis.constant;
 
 /**
  * 实体字段常量
+ *
  * @author levin
  * @since 1.0.0
  */
@@ -42,6 +43,10 @@ public final class BaseEntityConstant {
      * 序号
      */
     public static final String KEY_SEQ = "seq";
+    /**
+     * 启用/禁用
+     */
+    public static final String KEY_USE_FLAG = "useFlag";
     /**
      * 逻辑删除标识
      */

@@ -20,6 +20,7 @@
         <module>spring-boot-starter-mybatis</module>
         <module>spring-boot-starter-admin</module>
         <module>spring-boot-starter-log</module>
+        <module>spring-boot-starter-lock</module>
     </modules>
 
 </project>

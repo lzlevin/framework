@@ -47,7 +47,7 @@ public interface UseFlagService<E extends UseFlag & Idable<ID>, ID>
      * @param ids     批量ID
      * @param useFlag 启用/禁用
      */
-    @Log(action = "批量启用")
+    @Log(action = "批量禁启用")
     default void update(Collection<ID> ids, Boolean useFlag) {
         Assert.isEmpty(ids, "ID不能为空");
         ids = ids.stream().filter(Objects::nonNull).collect(Collectors.toList());

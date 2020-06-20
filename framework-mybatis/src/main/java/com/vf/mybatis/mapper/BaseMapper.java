@@ -9,6 +9,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public interface BaseMapper<E> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<E> {
+    //TODO 因mybatis plus将是否更新空值（类似updateSelective/update功能）放置在配置中，考虑将此方法进行mapper扩展等
     /**
      * 插入所有数据所有
      *

@@ -1,6 +1,6 @@
 ![image](logo-simple.png)
 
-![image](https://img.shields.io/badge/jdk-8%2B-blue.svg)
+![image](https://img.shields.io/badge/jdk-8%2B-blue.svg) ![image](https://img.shields.io/badge/mybatis-plus-orange.svg?link=https://github.com/baomidou/mybatis-plus) <img src="jetbrains-variant-3.png" width="100px" height="115px" onclick ="window.open('http://https://www.jetbrains.com/?from=https://github.com/lzlevin/framework');"/>
 
 ## 简介
 

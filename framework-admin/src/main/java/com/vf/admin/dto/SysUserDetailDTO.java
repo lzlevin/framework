@@ -2,6 +2,7 @@ package com.vf.admin.dto;
 
 import com.vf.mvc.dto.BaseDTO;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.time.LocalDate;
 import com.vf.mybatis.entity.AbstractBaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +10,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 /**
  * <p>
- * 组织机构
+ * 用户详情信息
  * </p>
  *
  * @author levin
@@ -19,38 +20,28 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SysOrgDTO extends BaseDTO<String> implements Serializable{
+public class SysUserDetailDTO extends BaseDTO<String> implements Serializable{
 
 
     /**
-     * 父ID
+     * 用户ID
      */
-    private String parentId;
+    private String userId;
 
     /**
-     * 编码
+     * 真实姓名
      */
-    private String code;
+    private String realName;
 
     /**
-     * 名称
+     * 性别
      */
-    private String name;
+    private Integer gender;
 
     /**
-     * 拼音简写
+     * 生日
      */
-    private String pinyinShort;
-
-    /**
-     * 拼音全场
-     */
-    private String pinyinLong;
-
-    /**
-     * 联系人
-     */
-    private String contact;
+    private LocalDate birthday;
 
     /**
      * 邮箱
@@ -58,9 +49,19 @@ public class SysOrgDTO extends BaseDTO<String> implements Serializable{
     private String email;
 
     /**
-     * 电话
+     * 邮箱是否验证
+     */
+    private Integer emailVerify;
+
+    /**
+     * 手机号
      */
     private String phone;
+
+    /**
+     * 手机号是否验证
+     */
+    private Integer phoneVerify;
 
     /**
      * 证件类型
@@ -73,34 +74,9 @@ public class SysOrgDTO extends BaseDTO<String> implements Serializable{
     private String certificateNo;
 
     /**
-     * 组织类型
-     */
-    private String orgType;
-
-    /**
-     * 组织行业
-     */
-    private String orgIndustry;
-
-    /**
      * 地址
      */
     private String address;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
-    /**
-     * 排序
-     */
-    private Long seq;
-
-    /**
-     * 启用
-     */
-    private Boolean useFlag;
 
 
 }

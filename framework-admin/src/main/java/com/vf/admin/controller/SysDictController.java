@@ -1,13 +1,10 @@
 package com.vf.admin.controller;
 
-import com.vf.admin.service.SysOrgService;
-import com.vf.admin.dto.SysOrgDTO;
-import com.vf.admin.entity.SysOrgEntity;
-import com.vf.admin.vo.SysOrgVO;
-import com.vf.admin.po.SysOrgPO;
-import com.vf.mvc.response.ApiResponse;
-import com.vf.common.entity.Parent;
-import com.vf.mvc.vo.NameVO;
+import com.vf.admin.dto.SysDictDTO;
+import com.vf.admin.entity.SysDictEntity;
+import com.vf.admin.po.SysDictPO;
+import com.vf.admin.service.SysDictService;
+import com.vf.admin.vo.SysDictVO;
 import com.vf.log.annotation.Log;
 import com.vf.mvc.controller.CurdController;
 import com.vf.mvc.service.CurdService;
@@ -19,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 组织机构 前端控制器
+ * 字典表 前端控制器
  * </p>
  *
  * @author levin
@@ -28,12 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/sysOrg")
-@Log(function = "组织机构")
-public class SysOrgController implements CurdController<SysOrgVO, SysOrgDTO, SysOrgEntity, SysOrgPO> {
+@RequestMapping("/sysDict")
+@Log(function = "字典表")
+public class SysDictController implements CurdController<SysDictVO, SysDictDTO, SysDictEntity, SysDictPO> {
 
     @Autowired
-    private SysOrgService service;
+    private SysDictService service;
 
     /**
      * curd服务
@@ -41,7 +38,7 @@ public class SysOrgController implements CurdController<SysOrgVO, SysOrgDTO, Sys
      * @return curd服务
      */
     @Override
-    public <S extends CurdService<SysOrgEntity, SysOrgDTO, SysOrgPO>> S getService() {
+    public <S extends CurdService<SysDictEntity, SysDictDTO, SysDictPO>> S getService() {
         return (S) service;
     }
 }

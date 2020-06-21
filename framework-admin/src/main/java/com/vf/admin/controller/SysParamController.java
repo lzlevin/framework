@@ -1,12 +1,11 @@
 package com.vf.admin.controller;
 
-import com.vf.admin.service.SysOrgService;
-import com.vf.admin.dto.SysOrgDTO;
-import com.vf.admin.entity.SysOrgEntity;
-import com.vf.admin.vo.SysOrgVO;
-import com.vf.admin.po.SysOrgPO;
+import com.vf.admin.service.SysParamService;
+import com.vf.admin.dto.SysParamDTO;
+import com.vf.admin.entity.SysParamEntity;
+import com.vf.admin.vo.SysParamVO;
+import com.vf.admin.po.SysParamPO;
 import com.vf.mvc.response.ApiResponse;
-import com.vf.common.entity.Parent;
 import com.vf.mvc.vo.NameVO;
 import com.vf.log.annotation.Log;
 import com.vf.mvc.controller.CurdController;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 组织机构 前端控制器
+ * 系统参数表 前端控制器
  * </p>
  *
  * @author levin
@@ -28,12 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/sysOrg")
-@Log(function = "组织机构")
-public class SysOrgController implements CurdController<SysOrgVO, SysOrgDTO, SysOrgEntity, SysOrgPO> {
+@RequestMapping("/sysParam")
+@Log(function = "系统参数表")
+public class SysParamController implements CurdController<SysParamVO, SysParamDTO, SysParamEntity, SysParamPO> {
 
     @Autowired
-    private SysOrgService service;
+    private SysParamService service;
 
     /**
      * curd服务
@@ -41,7 +40,7 @@ public class SysOrgController implements CurdController<SysOrgVO, SysOrgDTO, Sys
      * @return curd服务
      */
     @Override
-    public <S extends CurdService<SysOrgEntity, SysOrgDTO, SysOrgPO>> S getService() {
+    public <S extends CurdService<SysParamEntity, SysParamDTO, SysParamPO>> S getService() {
         return (S) service;
     }
 }

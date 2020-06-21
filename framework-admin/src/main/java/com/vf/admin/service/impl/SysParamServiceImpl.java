@@ -1,15 +1,15 @@
 package com.vf.admin.service.impl;
 
-import com.vf.admin.entity.SysOrgEntity;
-import com.vf.admin.service.SysOrgService;
-import com.vf.admin.biz.SysOrgBiz;
+import com.vf.admin.entity.SysParamEntity;
+import com.vf.admin.service.SysParamService;
+import com.vf.admin.biz.SysParamBiz;
 import com.vf.mybatis.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 组织机构 服务实现类
+ * 系统参数表 服务实现类
  * </p>
  *
  * @author levin
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service;
  * @since 1.0.0
  */
 @Service
-public class SysOrgServiceImpl implements SysOrgService {
+public class SysParamServiceImpl implements SysParamService {
 
     @Autowired
-    private SysOrgBiz biz;
+    private SysParamBiz biz;
 
     /**
     * dao
@@ -28,7 +28,7 @@ public class SysOrgServiceImpl implements SysOrgService {
     * @return E的dao
     */
     @Override
-    public <D extends IService<SysOrgEntity>> D getDao() {
+    public <D extends IService<SysParamEntity>> D getDao() {
         return (D) biz;
     }
 }

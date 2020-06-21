@@ -1,13 +1,11 @@
 package com.vf.admin.controller;
 
-import com.vf.admin.service.SysOrgService;
-import com.vf.admin.dto.SysOrgDTO;
-import com.vf.admin.entity.SysOrgEntity;
-import com.vf.admin.vo.SysOrgVO;
-import com.vf.admin.po.SysOrgPO;
+import com.vf.admin.service.SysRoleGrantService;
+import com.vf.admin.dto.SysRoleGrantDTO;
+import com.vf.admin.entity.SysRoleGrantEntity;
+import com.vf.admin.vo.SysRoleGrantVO;
+import com.vf.admin.po.SysRoleGrantPO;
 import com.vf.mvc.response.ApiResponse;
-import com.vf.common.entity.Parent;
-import com.vf.mvc.vo.NameVO;
 import com.vf.log.annotation.Log;
 import com.vf.mvc.controller.CurdController;
 import com.vf.mvc.service.CurdService;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 组织机构 前端控制器
+ *  前端控制器
  * </p>
  *
  * @author levin
@@ -28,12 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/sysOrg")
-@Log(function = "组织机构")
-public class SysOrgController implements CurdController<SysOrgVO, SysOrgDTO, SysOrgEntity, SysOrgPO> {
+@RequestMapping("/sysRoleGrant")
+@Log(function = "")
+public class SysRoleGrantController implements CurdController<SysRoleGrantVO, SysRoleGrantDTO, SysRoleGrantEntity, SysRoleGrantPO> {
 
     @Autowired
-    private SysOrgService service;
+    private SysRoleGrantService service;
 
     /**
      * curd服务
@@ -41,7 +39,7 @@ public class SysOrgController implements CurdController<SysOrgVO, SysOrgDTO, Sys
      * @return curd服务
      */
     @Override
-    public <S extends CurdService<SysOrgEntity, SysOrgDTO, SysOrgPO>> S getService() {
+    public <S extends CurdService<SysRoleGrantEntity, SysRoleGrantDTO, SysRoleGrantPO>> S getService() {
         return (S) service;
     }
 }

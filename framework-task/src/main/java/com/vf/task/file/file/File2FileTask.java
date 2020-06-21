@@ -67,6 +67,7 @@ public class File2FileTask extends AbstractFileTask {
      *
      * @param files 源文件
      */
+    @Override
     public void handleFiles(List<FileObject> files) throws IOException {
         List<FileObject> destList = new ArrayList<>(files.size());
         FileObject source = DEFAULT_FILE_SYSTEM_MANAGER.resolveFile(sourceFileUrl);

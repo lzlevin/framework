@@ -140,6 +140,27 @@ public abstract class AbstractTemplateEngine {
                         writer(objectMap, templateFilePath(template.getDto()), dtoPath);
                     }
                 }
+                //PO.java
+                if (null != tableInfo.getPoName() && null != pathInfo.get(ConstVal.PO_PATH)) {
+                    String poPath = String.format((pathInfo.get(ConstVal.PO_PATH) + File.separator + tableInfo.getPoName() + suffixJavaOrKt()), entityName);
+                    if (isCreate(FileType.PO, poPath)) {
+                        writer(objectMap, templateFilePath(template.getPo()), poPath);
+                    }
+                }
+                //Biz.java
+                if (null != tableInfo.getBizName() && null != pathInfo.get(ConstVal.BIZ_PATH)) {
+                    String bizPath = String.format((pathInfo.get(ConstVal.BIZ_PATH) + File.separator + tableInfo.getBizName() + suffixJavaOrKt()), entityName);
+                    if (isCreate(FileType.BIZ, bizPath)) {
+                        writer(objectMap, templateFilePath(template.getBiz()), bizPath);
+                    }
+                }
+                //BizImpl.java
+                if (null != tableInfo.getBizImplName() && null != pathInfo.get(ConstVal.BIZ_IMPL_PATH)) {
+                    String bizImplFile = String.format((pathInfo.get(ConstVal.BIZ_IMPL_PATH) + File.separator + tableInfo.getBizImplName() + suffixJavaOrKt()), entityName);
+                    if (isCreate(FileType.BIZ_IMPL, bizImplFile)) {
+                        writer(objectMap, templateFilePath(template.getBizImpl()), bizImplFile);
+                    }
+                }
             }
         } catch (Exception e) {
             logger.error("无法创建文件，请检查配置信息！", e);

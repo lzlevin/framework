@@ -1,5 +1,7 @@
 package com.vf.common.entity;
 
+import java.util.List;
+
 /**
  * 具有孩子属性的
  *
@@ -11,5 +13,5 @@ public interface ChildrenAware<C> {
     /**
      * 设置孩子节点
      */
-    void setChildren(Iterable<C> children);
+    void setChildren(List<C> children);
 }

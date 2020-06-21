@@ -1,7 +1,7 @@
-package ${package.VO};
+package ${package.PO};
 
-<#if superVOClassPackage??>
-import ${superVOClassPackage};
+<#if superPOClassPackage??>
+import ${superPOClassPackage};
 </#if>
 <#list table.importPackages as pkg>
 import ${pkg};
@@ -35,7 +35,7 @@ import java.util.List;
  */
 <#if entityLombokModel>
 @Data
-    <#if superVOClass??>
+    <#if superPOClass??>
 @EqualsAndHashCode(callSuper = true)
     <#else>
 @EqualsAndHashCode(callSuper = false)
@@ -43,13 +43,9 @@ import java.util.List;
 @Accessors(chain = true)
 </#if>
 <#if swagger2>
-@ApiModel(value = "${entity}VO", description = "${table.comment!}")
+@ApiModel(value = "${entity}PO", description = "${table.comment!}")
 </#if>
-<#if superVOClass??>
-public class ${table.voName} extends ${superVOClass}<${table.idPropertyType}> implements Serializable<#if table.hasParent>, Parent<${table.idPropertyType}>, ChildrenAware<${table.voName}></#if>{
-<#else>
-public class ${table.voName} implements Serializable {
-</#if>
+public class ${table.poName} implements Serializable {
 
 <#if entitySerialVersionUID>
     private static final long serialVersionUID = 1L;
@@ -105,7 +101,7 @@ public class ${table.voName} implements Serializable {
 <#if swagger2>
     @ApiModelProperty(value = "孩子节点")
 </#if>
-    private List<${table.voName}> children;
+    private List<${table.poName}> children;
 </#if>
 <#if entityColumnConstant>
     <#list table.fields as field>

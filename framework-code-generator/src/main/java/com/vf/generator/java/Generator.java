@@ -59,11 +59,14 @@ public class Generator {
         config.setController("templates/java/controller.java");
         config.setEntity("templates/java/entity.java");
         config.setMapper("templates/java/mapper.java");
+        config.setBiz("templates/java/biz.java");
+        config.setBizImpl("templates/java/bizImpl.java");
         config.setService("templates/java/service.java");
         config.setServiceImpl("templates/java/serviceImpl.java");
         config.setXml("templates/java/mapper.xml");
         config.setDto("templates/java/dto.java");
         config.setVo("templates/java/vo.java");
+        config.setPo("templates/java/po.java");
         return config;
     }
 
@@ -92,7 +95,7 @@ public class Generator {
         StrategyConfig config = new StrategyConfig();
         config.setSkipView(true);
         config.setNaming(NamingStrategy.underline_to_camel);
-        config.setColumnNaming(NamingStrategy.underline_to_camel);
+        config.setColumnNaming(NamingStrategy.no_change);
         config.setSuperEntityClass(AbstractBaseEntity.class);
         config.setSuperMapperClass(BaseMapper.class.getName());
         config.setSuperServiceClass(IService.class.getName());
@@ -118,12 +121,15 @@ public class Generator {
      */
     public static GlobalConfig getGlobalConfig() {
         GlobalConfig globalConfig = new GlobalConfig();
-        globalConfig.setSwagger2(true);
+        globalConfig.setSwagger2(false);
+        globalConfig.setFileOverride(true);
         globalConfig.setAuthor(PROPERTIES.getProperty("author"));
         globalConfig.setOpen(true);
+        globalConfig.setBizName("%sBiz");
+        globalConfig.setBizImplName("%sBizImpl");
         globalConfig.setEntityName("%sEntity");
-        globalConfig.setServiceName("%sBusiness");
-        globalConfig.setServiceImplName("%sBusinessImpl");
+        globalConfig.setServiceName("%sService");
+        globalConfig.setServiceImplName("%sServiceImpl");
         globalConfig.setOutputDir(PROPERTIES.getProperty("dir"));
         return globalConfig;
     }

@@ -45,10 +45,13 @@ public class TableInfo {
     private String entityName;
     private String mapperName;
     private String xmlName;
+    private String bizName;
+    private String bizImplName;
     private String serviceName;
     private String serviceImplName;
     private String voName;
     private String dtoName;
+    private String poName;
     private String controllerName;
     private boolean hasParent;
     private boolean hasSeq;

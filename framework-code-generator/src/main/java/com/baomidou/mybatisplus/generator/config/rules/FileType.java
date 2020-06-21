@@ -25,10 +25,13 @@ public enum FileType {
     ENTITY,
     MAPPER,
     XML,
+    BIZ,
+    BIZ_IMPL,
     SERVICE,
     SERVICE_IMPL,
     CONTROLLER,
     VO,
     DTO,
+    PO,
     OTHER
 }

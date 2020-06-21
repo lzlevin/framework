@@ -1,9 +1,10 @@
 package ${package.ServiceImpl};
 
 import ${package.Entity}.${entity};
-import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
-import ${superServiceImplClassPackage};
+import ${package.Biz}.${table.bizName};
+import com.vf.mybatis.service.IService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,12 +17,18 @@ import org.springframework.stereotype.Service;
  * @since ${cfg.version}
  */
 @Service
-<#if kotlin>
-open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+public class ${table.serviceImplName} implements ${table.serviceName} {
 
-}
-<#else>
-public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+    @Autowired
+    private ${table.bizName} biz;
 
+    /**
+    * dao
+    *
+    * @return E的dao
+    */
+    @Override
+    public <D extends IService<${entity}>> D getDao() {
+        return (D) biz;
+    }
 }
-</#if>

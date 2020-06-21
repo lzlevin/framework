@@ -4,16 +4,16 @@ package ${package.Entity};
 import ${pkg};
 </#list>
 <#if table.hasName>
-import com.vf.core.common.Name;
+import com.vf.common.entity.Name;
 </#if>
 <#if table.hasParent>
-import com.vf.core.common.Parent;
+import com.vf.common.entity.Parent;
 </#if>
 <#if table.hasUseFlag>
-import com.vf.core.common.UseFlag;
+import com.vf.common.entity.UseFlag;
 </#if>
 <#if table.hasSeq>
-import com.vf.core.common.Sequence;
+import com.vf.common.entity.Sequence;
 </#if>
 <#if swagger2>
 import io.swagger.annotations.ApiModel;
@@ -50,7 +50,7 @@ import lombok.experimental.Accessors;
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
-public class ${entity} extends ${superEntityClass}<${table.idPropertyType}> <#if activeRecord><${entity}></#if><#if table.hasName || table.hasParent || table.hasUseFlag || table.hasSeq > implements<#if table.hasName> Name</#if><#if table.hasName && table.hasParent>,</#if><#if table.hasParent> Parent<${table.idPropertyType}></#if ><#if ( table.hasName || table.hasParent ) && table.hasUseFlag>,</#if><#if table.hasUseFlag> UseFlag</#if><#if ( table.hasName || table.hasParent || table.hasUseFlag ) && table.hasSeq >,</#if><#if table.hasSeq> Sequence</#if></#if> {
+public class ${entity} extends ${superEntityClass}<${table.idPropertyType}> <#if activeRecord><${entity}></#if><#if table.hasName || table.hasParent || table.hasUseFlag || table.hasSeq >implements<#if table.hasName> Name</#if><#if table.hasName && table.hasParent>,</#if><#if table.hasParent> Parent<${table.idPropertyType}></#if ><#if ( table.hasName || table.hasParent ) && table.hasUseFlag>,</#if><#if table.hasUseFlag> UseFlag</#if><#if ( table.hasName || table.hasParent || table.hasUseFlag ) && table.hasSeq >,</#if><#if table.hasSeq> Sequence</#if></#if> {
 <#elseif activeRecord>
 public class ${entity} extends Model<${entity}> {
 <#else>

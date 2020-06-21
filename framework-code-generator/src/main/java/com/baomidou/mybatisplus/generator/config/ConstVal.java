@@ -31,14 +31,19 @@ public interface ConstVal {
 
     String ENTITY = "Entity";
     String SERVICE = "Service";
+    String BIZ = "Biz";
+    String BIZ_IMPL = "BizImpl";
     String SERVICE_IMPL = "ServiceImpl";
     String MAPPER = "Mapper";
     String XML = "Xml";
     String CONTROLLER = "Controller";
     String VO = "VO";
     String DTO = "DTO";
+    String PO = "PO";
 
     String ENTITY_PATH = "entity_path";
+    String BIZ_PATH = "biz_path";
+    String BIZ_IMPL_PATH = "biz_impl_path";
     String SERVICE_PATH = "service_path";
     String SERVICE_IMPL_PATH = "service_impl_path";
     String MAPPER_PATH = "mapper_path";
@@ -46,6 +51,7 @@ public interface ConstVal {
     String CONTROLLER_PATH = "controller_path";
     String VO_PATH = "vo_path";
     String DTO_PATH = "dto_path";
+    String PO_PATH = "po_path";
 
     String JAVA_TMPDIR = "java.io.tmpdir";
     String UTF8 = StandardCharsets.UTF_8.name();
@@ -59,10 +65,13 @@ public interface ConstVal {
     String TEMPLATE_ENTITY_KT = "/templates/entity.kt";
     String TEMPLATE_MAPPER = "/templates/mapper.java";
     String TEMPLATE_XML = "/templates/mapper.xml";
+    String TEMPLATE_BIZ = "/templates/biz.java";
+    String TEMPLATE_BIZ_IMPL = "/templates/bizImpl.java";
     String TEMPLATE_SERVICE = "/templates/service.java";
     String TEMPLATE_SERVICE_IMPL = "/templates/serviceImpl.java";
     String TEMPLATE_CONTROLLER = "/templates/controller.java";
     String TEMPLATE_VO = "/templates/vo.java";
+    String TEMPLATE_PO = "/templates/po.java";
     String TEMPLATE_DTO = "/templates/dto.java";
 
     String VM_LOAD_PATH_KEY = "file.resource.loader.class";

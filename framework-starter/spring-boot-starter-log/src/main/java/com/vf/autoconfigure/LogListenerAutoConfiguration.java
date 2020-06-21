@@ -43,10 +43,10 @@ public class LogListenerAutoConfiguration implements ApplicationListener<Applica
     @Conditional(Slf4jCondition.class)
     public Slf4jLogListener vinSlf4jLogListener(LogPointcutAdvisor logPointcutAdvisor) {
         Slf4jLogListener slf4jLogListener = new Slf4jLogListener();
-        logPointcutAdvisor.MATCH_METHOD.stream().map(Method::getDeclaringClass).forEach(
-                t -> slf4jLogListener.LOGGER_CACHE.put(t, LoggerFactory.getLogger(t))
+        LogPointcutAdvisor.MATCH_METHOD.stream().map(Method::getDeclaringClass).forEach(
+                t -> Slf4jLogListener.LOGGER_CACHE.put(t, LoggerFactory.getLogger(t))
         );
-        logPointcutAdvisor.MATCH_METHOD.clear();
+        LogPointcutAdvisor.MATCH_METHOD.clear();
         return slf4jLogListener;
     }
 

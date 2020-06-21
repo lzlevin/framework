@@ -92,11 +92,14 @@ public class GlobalConfig {
     private String entityName;
     private String mapperName;
     private String xmlName;
+    private String bizName;
+    private String bizImplName;
     private String serviceName;
     private String serviceImplName;
     private String controllerName;
     private String voName;
     private String dtoName;
+    private String poName;
     /**
      * 指定生成的主键的ID类型
      */

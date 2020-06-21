@@ -247,7 +247,7 @@ public class ConfigBuilder {
      */
     private void handlerPackage(TemplateConfig template, String outputDir, PackageConfig config) {
         // 包信息
-        packageInfo = new HashMap<>(8);
+        packageInfo = new HashMap<>(12);
         packageInfo.put(ConstVal.MODULE_NAME, config.getModuleName());
         packageInfo.put(ConstVal.ENTITY, joinPackage(config.getParent(), config.getEntity()));
         packageInfo.put(ConstVal.MAPPER, joinPackage(config.getParent(), config.getMapper()));
@@ -257,6 +257,9 @@ public class ConfigBuilder {
         packageInfo.put(ConstVal.CONTROLLER, joinPackage(config.getParent(), config.getController()));
         packageInfo.put(ConstVal.VO, joinPackage(config.getParent(), config.getVo()));
         packageInfo.put(ConstVal.DTO, joinPackage(config.getParent(), config.getDto()));
+        packageInfo.put(ConstVal.PO, joinPackage(config.getParent(), config.getPo()));
+        packageInfo.put(ConstVal.BIZ, joinPackage(config.getParent(), config.getBiz()));
+        packageInfo.put(ConstVal.BIZ_IMPL, joinPackage(config.getParent(), config.getBizImpl()));
 
         // 自定义路径
         Map<String, String> configPathInfo = config.getPathInfo();
@@ -264,7 +267,7 @@ public class ConfigBuilder {
             pathInfo = configPathInfo;
         } else {
             // 生成路径信息
-            pathInfo = new HashMap<>(6);
+            pathInfo = new HashMap<>(11);
             setPathInfo(pathInfo, template.getEntity(getGlobalConfig().isKotlin()), outputDir, ConstVal.ENTITY_PATH, ConstVal.ENTITY);
             setPathInfo(pathInfo, template.getMapper(), outputDir, ConstVal.MAPPER_PATH, ConstVal.MAPPER);
             setPathInfo(pathInfo, template.getXml(), outputDir, ConstVal.XML_PATH, ConstVal.XML);
@@ -273,6 +276,9 @@ public class ConfigBuilder {
             setPathInfo(pathInfo, template.getController(), outputDir, ConstVal.CONTROLLER_PATH, ConstVal.CONTROLLER);
             setPathInfo(pathInfo, template.getVo(), outputDir, ConstVal.VO_PATH, ConstVal.VO);
             setPathInfo(pathInfo, template.getDto(), outputDir, ConstVal.DTO_PATH, ConstVal.DTO);
+            setPathInfo(pathInfo, template.getPo(), outputDir, ConstVal.PO_PATH, ConstVal.PO);
+            setPathInfo(pathInfo, template.getBiz(), outputDir, ConstVal.BIZ_PATH, ConstVal.BIZ);
+            setPathInfo(pathInfo, template.getBizImpl(), outputDir, ConstVal.BIZ_IMPL_PATH, ConstVal.BIZ_IMPL);
         }
     }
 
@@ -368,6 +374,18 @@ public class ConfigBuilder {
             } else {
                 tableInfo.setXmlName(entityName + ConstVal.MAPPER);
             }
+
+            if (StringUtils.isNotBlank(globalConfig.getBizName())) {
+                tableInfo.setBizName(String.format(globalConfig.getBizName(), entityName));
+            } else {
+                tableInfo.setBizName("I" + entityName + ConstVal.BIZ);
+            }
+            if (StringUtils.isNotBlank(globalConfig.getBizImplName())) {
+                tableInfo.setBizImplName(String.format(globalConfig.getBizImplName(), entityName));
+            } else {
+                tableInfo.setBizImplName(entityName + ConstVal.BIZ_IMPL);
+            }
+
             if (StringUtils.isNotBlank(globalConfig.getServiceName())) {
                 tableInfo.setServiceName(String.format(globalConfig.getServiceName(), entityName));
             } else {
@@ -392,6 +410,11 @@ public class ConfigBuilder {
                 tableInfo.setDtoName(String.format(globalConfig.getDtoName(), entityName));
             } else {
                 tableInfo.setDtoName(entityName + ConstVal.DTO);
+            }
+            if (StringUtils.isNotBlank(globalConfig.getPoName())) {
+                tableInfo.setPoName(String.format(globalConfig.getPoName(), entityName));
+            } else {
+                tableInfo.setPoName(entityName + ConstVal.PO);
             }
             // 检测导入包
             checkImportPackages(tableInfo);
@@ -571,7 +594,7 @@ public class ConfigBuilder {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return processTable(includeTableList, config.getColumnNaming(), config);
+        return processTable(includeTableList, config.getNaming(), config);
     }
 
 

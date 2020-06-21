@@ -35,6 +35,10 @@ public class TemplateConfig {
 
     private String entityKt = ConstVal.TEMPLATE_ENTITY_KT;
 
+    private String biz = ConstVal.TEMPLATE_BIZ;
+
+    private String bizImpl = ConstVal.TEMPLATE_BIZ_IMPL;
+
     private String service = ConstVal.TEMPLATE_SERVICE;
 
     private String serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
@@ -46,6 +50,8 @@ public class TemplateConfig {
     private String controller = ConstVal.TEMPLATE_CONTROLLER;
 
     private String vo = ConstVal.TEMPLATE_VO;
+
+    private String po = ConstVal.TEMPLATE_PO;
 
     private String dto = ConstVal.TEMPLATE_DTO;
 

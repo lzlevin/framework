@@ -49,11 +49,11 @@ public class PackageConfig {
     /**
      * Service包名
      */
-    private String service = "biz";
+    private String service = "service";
     /**
      * Service Impl包名
      */
-    private String serviceImpl = "biz.impl";
+    private String serviceImpl = "service.impl";
     /**
      * Mapper包名
      */
@@ -70,6 +70,12 @@ public class PackageConfig {
     private String vo = "vo";
 
     private String dto = "dto";
+
+    private String po = "po";
+
+    private String biz = "biz";
+
+    private String bizImpl = "biz.impl";
     /**
      * 路径配置信息
      */

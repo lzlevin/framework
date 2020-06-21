@@ -1,10 +1,13 @@
 package com.vf.mvc.controller;
 
+import com.vf.mvc.dto.MultiIdDTO;
 import com.vf.mvc.response.ApiResponse;
 import com.vf.mvc.service.DeleteService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 删除controller
@@ -33,5 +36,19 @@ public interface DeleteController<VO, DTO, E, PO>
     default ApiResponse delete(Serializable id) {
         boolean save = getDeleteService().removeById(id);
         return ApiResponse.success(save);
+    }
+
+    /**
+     * 根据ID批量删除
+     *
+     * @param dto 批量ID
+     * @return 删除成功
+     */
+    @RequestMapping("deleteBatch")
+    default ApiResponse deleteBatch(MultiIdDTO dto) {
+        //TODO 使用ResolveType解决泛型问题
+        List<Serializable> split = dto.split(String.class).stream().map(t -> (Serializable) t).collect(Collectors.toList());
+        getDeleteService().removeByIds(split);
+        return ApiResponse.success(dto.getId());
     }
 }

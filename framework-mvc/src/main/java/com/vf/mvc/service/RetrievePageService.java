@@ -2,9 +2,9 @@ package com.vf.mvc.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.vf.log.annotation.Log;
+import com.vf.utils.lang.Assert;
 
 /**
  * 基础分页查询服务

@@ -33,7 +33,7 @@ public interface DeleteController<VO, DTO, E, PO>
      * @return
      */
     @RequestMapping("delete")
-    default ApiResponse delete(Serializable id) {
+    default ApiResponse delete(String id) {
         boolean save = getDeleteService().removeById(id);
         return ApiResponse.success(save);
     }

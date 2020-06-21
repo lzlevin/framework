@@ -51,7 +51,7 @@ public class ${table.poName} implements Serializable {
     private static final long serialVersionUID = 1L;
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
-<#assign skipField = ['createBy','createTime','modifyBy','modifyTime']>
+<#assign skipField = []>
 <#list table.fields as field>
     <#if !skipField?seq_contains('${field.propertyName}')>
     <#if field.keyFlag>
@@ -65,6 +65,9 @@ public class ${table.poName} implements Serializable {
         <#if swagger2>
     @ApiModelProperty(value = "${field.comment}")
         </#if>
+    </#if>
+    <#if field.propertyName=='parentId' && entityLombokModel>
+    @Accessors(chain = false)
     </#if>
     private ${field.propertyType} ${field.propertyName};
     </#if>

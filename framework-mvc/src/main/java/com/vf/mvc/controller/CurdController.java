@@ -10,7 +10,8 @@ import com.vf.mvc.service.*;
  */
 public interface CurdController<VO, DTO, E, PO>
         extends BaseController<VO, DTO, E, PO>, CreateController<VO, DTO, E, PO>,
-        UpdateController<VO, DTO, E, PO>, RetrieveController<VO, DTO, E, PO>, DeleteController<VO, DTO, E, PO> {
+        UpdateController<VO, DTO, E, PO>, RetrieveController<VO, DTO, E, PO>, DeleteController<VO, DTO, E, PO>,
+        RetrievePageController<VO, DTO, E, PO> {
 
     /**
      * curd服务
@@ -51,6 +52,16 @@ public interface CurdController<VO, DTO, E, PO>
     }
 
     /**
+     * 分页查询服务
+     *
+     * @return 分页查询服务
+     */
+    @Override
+    default <S extends RetrievePageService<E, DTO, PO>> S getRetrievePageService() {
+        return getService();
+    }
+
+    /**
      * 更新服务
      *
      * @return 更新服务
@@ -59,4 +70,6 @@ public interface CurdController<VO, DTO, E, PO>
     default <S extends UpdateService<E, DTO, PO>> S getUpdateService() {
         return getService();
     }
+
+
 }

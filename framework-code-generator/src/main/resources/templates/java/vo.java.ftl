@@ -56,6 +56,7 @@ public class ${table.voName} implements Serializable {
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#assign skipField = ['createBy','createTime','modifyBy','modifyTime']>
+<#assign accessorsFlaseField = ['useFlag','parentId']>
 <#list table.fields as field>
     <#if !skipField?seq_contains('${field.propertyName}')>
     <#if field.keyFlag>
@@ -69,6 +70,9 @@ public class ${table.voName} implements Serializable {
         <#if swagger2>
     @ApiModelProperty(value = "${field.comment}")
         </#if>
+    </#if>
+    <#if accessorsFlaseField?seq_contains(field.propertyName) && entityLombokModel>
+    @Accessors(chain = false)
     </#if>
     private ${field.propertyType} ${field.propertyName};
     </#if>
@@ -105,6 +109,9 @@ public class ${table.voName} implements Serializable {
 <#if swagger2>
     @ApiModelProperty(value = "孩子节点")
 </#if>
+    <#if entityLombokModel>
+    @Accessors(chain = false)
+    </#if>
     private List<${table.voName}> children;
 </#if>
 <#if entityColumnConstant>

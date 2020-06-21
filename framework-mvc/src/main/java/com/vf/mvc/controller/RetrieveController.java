@@ -4,7 +4,6 @@ import com.vf.mvc.response.ApiResponse;
 import com.vf.mvc.service.RetrieveService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +44,7 @@ public interface RetrieveController<VO, DTO, E, PO>
      * @return
      */
     @RequestMapping("get")
-    default ApiResponse get(Serializable id) {
+    default ApiResponse get(String id) {
         PO po = getRetrieveService().getById(id);
         return ApiResponse.success(createVO(po));
     }

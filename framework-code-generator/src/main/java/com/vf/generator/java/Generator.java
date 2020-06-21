@@ -122,7 +122,7 @@ public class Generator {
     public static GlobalConfig getGlobalConfig() {
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setSwagger2(false);
-        globalConfig.setFileOverride(true);
+        globalConfig.setFileOverride(false);
         globalConfig.setAuthor(PROPERTIES.getProperty("author"));
         globalConfig.setOpen(true);
         globalConfig.setBizName("%sBiz");

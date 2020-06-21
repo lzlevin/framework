@@ -10,7 +10,7 @@ import com.vf.mvc.response.ApiResponse;
 import com.vf.common.entity.Parent;
 </#if>
 <#if table.hasName>
-import com.vf.core.vo.NameVO;
+import com.vf.mvc.vo.NameVO;
 </#if>
 import com.vf.log.annotation.Log;
 import com.vf.mvc.controller.CurdController;
@@ -43,7 +43,7 @@ import ${superControllerClassPackage};
 <#else>
 @Controller
 </#if>
-@RequestMapping("<#if package.ModuleName??>/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
+@RequestMapping("<#if package.ModuleName??>/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath?replace('Entity','')}</#if>")
 @Log(function = "${table.comment!}")
 public class ${table.controllerName} implements CurdController<${table.voName}, ${table.dtoName}, ${entity}, ${table.poName}> {
 
@@ -51,10 +51,10 @@ public class ${table.controllerName} implements CurdController<${table.voName}, 
     private ${table.serviceName} service;
 
     /**
-    * curd服务
-    *
-    * @return curd服务
-    */
+     * curd服务
+     *
+     * @return curd服务
+     */
     @Override
     public <S extends CurdService<${entity}, ${table.dtoName}, ${table.poName}>> S getService() {
         return (S) service;

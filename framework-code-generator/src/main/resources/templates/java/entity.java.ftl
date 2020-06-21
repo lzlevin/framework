@@ -61,6 +61,7 @@ public class ${entity} implements Serializable {
     private static final long serialVersionUID = 1L;
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
+<#assign accessorsFlaseField = ['useFlag','parentId']>
 <#list table.fields as field>
     <#if field.keyFlag>
         <#assign keyPropertyName="${field.propertyName}"/>
@@ -102,7 +103,7 @@ public class ${entity} implements Serializable {
     <#if (logicDeleteFieldName!"") == field.name>
     @TableLogic
     </#if>
-    <#if field.propertyName == "useFlag">
+    <#if accessorsFlaseField?seq_contains(field.propertyName) && entityLombokModel>
     @Accessors(chain = false)
     </#if>
     private ${field.propertyType} ${field.propertyName};

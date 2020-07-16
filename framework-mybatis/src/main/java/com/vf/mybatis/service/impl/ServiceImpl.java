@@ -1,5 +1,7 @@
 package com.vf.mybatis.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.vf.mybatis.mapper.BaseMapper;
 import com.vf.mybatis.service.IService;
 
@@ -21,5 +23,26 @@ public abstract class ServiceImpl<M extends BaseMapper<T>, T> extends com.baomid
     @Override
     public int saveInBatch(Collection<T> collection) {
         return baseMapper.insertInBatch(collection);
+    }
+
+
+    /**
+     * 根据 Wrapper 条件，查询最大记录值
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link QueryWrapper}
+     */
+    @Override
+    public Object max(Wrapper<T> queryWrapper) {
+        return baseMapper.max(queryWrapper);
+    }
+
+    /**
+     * 根据 Wrapper 条件，查询最小记录值
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link QueryWrapper}
+     */
+    @Override
+    public Object min(Wrapper<T> queryWrapper) {
+        return baseMapper.min(queryWrapper);
     }
 }

@@ -1,7 +1,10 @@
 package com.vf.mvc.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.vf.log.annotation.Log;
 import com.vf.mybatis.service.IService;
 import com.vf.utils.bean.BeanUtil;
+import com.vf.utils.lang.Assert;
 import org.springframework.core.ResolvableType;
 
 import java.util.Collection;
@@ -129,5 +132,29 @@ public interface BaseService<E, DTO, PO> {
     default Class<DTO> getClassDTO() {
         ResolvableType as = ResolvableType.forClass(getClass()).as(BaseService.class);
         return (Class<DTO>) as.getGeneric(1).toClass();
+    }
+
+    /**
+     * 根据条件查询
+     *
+     * @param wrapper 查询条件
+     * @return 查询结果
+     */
+    @Log(action = "根据条件查询最大值")
+    default Object max(Wrapper<E> wrapper) {
+        Assert.isNull(wrapper, "查询条件不能为空");
+        return getDao().max(wrapper);
+    }
+
+    /**
+     * 根据条件查询
+     *
+     * @param wrapper 查询条件
+     * @return 查询结果
+     */
+    @Log(action = "根据条件查询最小值")
+    default Object min(Wrapper<E> wrapper) {
+        Assert.isNull(wrapper, "查询条件不能为空");
+        return getDao().min(wrapper);
     }
 }

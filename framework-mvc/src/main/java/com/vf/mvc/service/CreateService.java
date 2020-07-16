@@ -1,5 +1,8 @@
 package com.vf.mvc.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.vf.common.entity.Sequence;
 import com.vf.log.annotation.Log;
 import com.vf.utils.lang.Assert;
 import com.vf.validate.group.CreateGroup;
@@ -28,6 +31,7 @@ public interface CreateService<E, DTO, PO> extends BaseService<E, DTO, PO> {
     default boolean save(DTO dto) {
         Assert.isNull(dto, "新增数据不能为空");
         E entity = createEntity(dto);
+        setSeq(entity);
         BeanValidator.validate(entity, CreateGroup.class);
         return getDao().save(entity);
     }
@@ -43,6 +47,25 @@ public interface CreateService<E, DTO, PO> extends BaseService<E, DTO, PO> {
         Assert.isEmpty(list, "批量新增数据不能为空");
         List<E> collect = list.stream().map(t -> createEntity(t)).collect(Collectors.toList());
         collect.forEach(t -> BeanValidator.validate(t, CreateGroup.class));
+        collect.forEach(this::setSeq);
         return getDao().saveInBatch(collect);
+    }
+
+    /**
+     * 设置序列号
+     *
+     * @param entity
+     */
+    default void setSeq(E entity) {
+        if (entity instanceof Sequence) {
+            Long seq = ((Sequence) entity).getSeq();
+            if (null == seq) {
+                QueryWrapper<E> queryWrapper = Wrappers.query(createEntity()).select("seq");
+                seq = (Long) max(queryWrapper);
+            }
+            if (null == seq) {
+                seq = 0L;
+            }
+        }
     }
 }

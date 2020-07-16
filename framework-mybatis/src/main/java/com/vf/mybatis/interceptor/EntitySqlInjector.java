@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.methods.*;
 import com.vf.mybatis.methods.InsertInBatch;
+import com.vf.mybatis.methods.Max;
+import com.vf.mybatis.methods.Min;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -38,7 +40,9 @@ public class EntitySqlInjector extends DefaultSqlInjector {
                 new SelectObjs(),
                 new SelectList(),
                 new SelectPage(),
-                new InsertInBatch()
+                new InsertInBatch(),
+                new Max(),
+                new Min()
         ).collect(toList());
     }
 }

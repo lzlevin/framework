@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.vf.autoconfigure.AuthAutoConfiguration,\
+com.vf.autoconfigure.AuthAnnotationAutoConfiguration,\
+com.vf.autoconfigure.AuthBeanAutoConfiguration

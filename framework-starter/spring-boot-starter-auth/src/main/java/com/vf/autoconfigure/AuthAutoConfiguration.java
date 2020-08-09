@@ -12,6 +12,7 @@ import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.config.AbstractShiroConfiguration;
+import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -98,4 +99,9 @@ public class AuthAutoConfiguration extends AbstractShiroConfiguration {
         return super.securityManager(realms);
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public Realm realm() {
+        throw new BeanDefinitionValidationException("No bean of type 'org.apache.shiro.realm.Realm' found.");
+    }
 }

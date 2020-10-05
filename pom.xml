@@ -27,6 +27,7 @@
         <module>framework-mvc</module>
         <module>framework-task</module>
         <module>framework-lock</module>
+        <module>framework-auth</module>
     </modules>
 
     <name>framework-parent</name>

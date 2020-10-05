@@ -7,6 +7,7 @@ import com.vf.log.annotation.Log;
 import com.vf.utils.lang.Assert;
 import com.vf.validate.group.CreateGroup;
 import com.vf.validate.validator.BeanValidator;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,6 +44,7 @@ public interface CreateService<E, DTO, PO> extends BaseService<E, DTO, PO> {
      * @return 新增数量
      */
     @Log(action = "批量新增")
+    @Transactional(rollbackFor = Throwable.class)
     default int saveInBatch(Collection<DTO> list) {
         Assert.isEmpty(list, "批量新增数据不能为空");
         List<E> collect = list.stream().map(t -> createEntity(t)).collect(Collectors.toList());

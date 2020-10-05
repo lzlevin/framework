@@ -42,7 +42,7 @@ public final class WrapperUtils {
         if (wrapper != null || wrapper.getEntity() != null) {
             if (wrapper instanceof LambdaQueryWrapper) {
                 LambdaQueryWrapper<E> lambdaQueryWrapper = (LambdaQueryWrapper) wrapper;
-                if (lambdaQueryWrapper.getEntity() instanceof UseFlag) {
+                if (lambdaQueryWrapper.getEntity() instanceof Sequence) {
                     lambdaQueryWrapper.orderByAsc(t -> ((Sequence) t).getSeq());
                 }
             }
@@ -58,6 +58,6 @@ public final class WrapperUtils {
      * @return wrapper
      */
     public static <E> Wrapper<E> wrapper(Wrapper<E> wrapper) {
-        return wrapperSequence(wrapperUseFlag(wrapper));
+        return wrapper;
     }
 }

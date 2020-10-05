@@ -1,6 +1,7 @@
 package com.vf.mvc.service;
 
 import com.vf.log.annotation.Log;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -11,7 +12,7 @@ import java.util.Collection;
  * @author levin
  * @since 1.0.0
  */
-public interface DeleteService<E,DTO,PO> extends BaseService<E,DTO,PO> {
+public interface DeleteService<E, DTO, PO> extends BaseService<E, DTO, PO> {
 
     /**
      * 根据ID删除一条
@@ -31,6 +32,7 @@ public interface DeleteService<E,DTO,PO> extends BaseService<E,DTO,PO> {
      * @return 是否删除成功
      */
     @Log(action = "根据ID批量删除")
+    @Transactional(rollbackFor = Throwable.class)
     default boolean removeByIds(Collection<Serializable> ids) {
         return getDao().removeByIds(ids);
     }

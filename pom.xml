@@ -28,6 +28,7 @@
         <module>framework-task</module>
         <module>framework-lock</module>
         <module>framework-auth</module>
+        <module>framework-i18n</module>
     </modules>
 
     <name>framework-parent</name>
